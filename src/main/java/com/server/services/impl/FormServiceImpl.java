@@ -63,13 +63,13 @@ public class FormServiceImpl implements FormService {
 		return this.formRepository.findByhora(hora);
 	}
 
-	@Override
+	/*@Override
 	public Form findbylocaSaida(String locaSaida) {
-		return this.formRepository.findbylocaSaida(locaSaida);
-	}
+		return this.formRepository.findbylocalSaida(locaSaida);
+	}*/
 
 	@Override
-	public Form persisitir(Form formulario) {
+	public Form persistir(Form formulario) {
 		return this.formRepository.save(formulario);
 	}
 

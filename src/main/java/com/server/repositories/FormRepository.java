@@ -26,7 +26,7 @@ public interface FormRepository extends JpaRepository<Form, Long>{
 	Form findByhoraSaida(String horaSaida);
 	Form findByregressoProvavel(String regressoProvavel);
 	Form findByhora(String hora);
-	Form findbylocaSaida(String locaSaida);
+	//Form findbylocalSaida(String localSaida);
 	
 
 }

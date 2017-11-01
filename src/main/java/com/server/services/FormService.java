@@ -24,9 +24,9 @@ public interface FormService {
 	Form findByhoraSaida(String horaSaida);
 	Form findByregressoProvavel(String regressoProvavel);
 	Form findByhora(String hora);
-	Form findbylocaSaida(String locaSaida);
+	//Form findbylocaSaida(String locaSaida);
 	
 	//Salvar formulário
  
-	Form persisitir(Form formulario);
+	Form persistir(Form formulario);
 }

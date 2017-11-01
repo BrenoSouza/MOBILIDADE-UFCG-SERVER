@@ -1,22 +1,7 @@
-package com.server.entities;
+package com.server.dtos;
 
-import java.io.Serializable;
+public class FormDto {
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-
-
-
-@Entity
-@Table(name = "form")
-public class Form implements Serializable{
-
-	private Long id;
-	
 	//dados da viagem
 	private String setorRequisitante;
 	private String dataRequisição;
@@ -26,37 +11,26 @@ public class Form implements Serializable{
 	//dados do solicitante
 	private String nome;
 	private String telefone;
-	
+		
 	//datas e horas da viagem
 	private String dataViagem;
 	private String horaSaida;
 	private String regressoProvavel;
 	private String hora;
-	private String localSaida;
-	
+	private String locaSaida;
+		
 	//passageiros no aeroporto
-	
+		
 	private String horarioDeChegada;
 	private String numeroVoo;
 	private String empresaAerea;
 	private String OrigemViagem;
-	
+		
 	//responsável pela diarias do motorista
 	private String setorResponsávelMotorista;
 	
-	//construtor padrão
-	public Form () {
+	public FormDto() {
 		
-	}
-	
-	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getSetorRequisitante() {
@@ -111,8 +85,8 @@ public class Form implements Serializable{
 		return dataViagem;
 	}
 
-	public void setDataViagem(String data) {
-		this.dataViagem = data;
+	public void setDataViagem(String dataViagem) {
+		this.dataViagem = dataViagem;
 	}
 
 	public String getHoraSaida() {
@@ -140,11 +114,11 @@ public class Form implements Serializable{
 	}
 
 	public String getLocaSaida() {
-		return localSaida;
+		return locaSaida;
 	}
 
 	public void setLocaSaida(String locaSaida) {
-		this.localSaida = locaSaida;
+		this.locaSaida = locaSaida;
 	}
 
 	public String getHorarioDeChegada() {
