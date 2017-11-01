@@ -18,28 +18,28 @@ public class Form implements Serializable{
 	private Long id;
 	
 	//dados da viagem
-	private String setorRequisitante;
-	private String dataRequisição;
-	private String destino;
-	private String objetivo;
+	private String requesterSector;
+	private String requestDate;
+	private String destination;
+	private String purpose;
 	
 	//dados do solicitante
-	private String nome;
-	private String telefone;
+	private String name;
+	private String phone;
 	
 	//datas e horas da viagem
-	private String dataViagem;
-	private String horaSaida;
-	private String regressoProvavel;
-	private String hora;
-	private String localSaida;
+	private String travelDate;
+	private String departureHour;
+	private String likelyReturn;
+	private String hour;
+	private String departurePoint;
 	
 	//passageiros no aeroporto
 	
-	private String horarioDeChegada;
-	private String numeroVoo;
-	private String empresaAerea;
-	private String OrigemViagem;
+	private String arrivalTime;
+	private String flightNumber;
+	private String airCompany;
+	private String travelOrigin;
 	
 	//responsável pela diarias do motorista
 	private String setorResponsávelMotorista;
@@ -59,124 +59,124 @@ public class Form implements Serializable{
 		this.id = id;
 	}
 
-	public String getSetorRequisitante() {
-		return setorRequisitante;
+	public String getRequesterSector() {
+		return requesterSector;
 	}
 
-	public void setSetorRequisitante(String setorRequisitante) {
-		this.setorRequisitante = setorRequisitante;
+	public void setRequesterSector(String requesterSector) {
+		this.requesterSector = requesterSector;
 	}
 
-	public String getDataRequisição() {
-		return dataRequisição;
+	public String getRequestDate() {
+		return requestDate;
 	}
 
-	public void setDataRequisição(String dataRequisição) {
-		this.dataRequisição = dataRequisição;
+	public void setRequestDate(String requestDate) {
+		this.requestDate = requestDate;
 	}
 
-	public String getDestino() {
-		return destino;
+	public String getDestination() {
+		return destination;
 	}
 
-	public void setDestino(String destino) {
-		this.destino = destino;
+	public void setDestination(String destination) {
+		this.destination = destination;
 	}
 
-	public String getObjetivo() {
-		return objetivo;
+	public String getPurpose() {
+		return purpose;
 	}
 
-	public void setObjetivo(String objetivo) {
-		this.objetivo = objetivo;
+	public void setPurpose(String purpose) {
+		this.purpose = purpose;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getTelefone() {
-		return telefone;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
-	public String getDataViagem() {
-		return dataViagem;
+	public String getTravelDate() {
+		return travelDate;
 	}
 
-	public void setDataViagem(String data) {
-		this.dataViagem = data;
+	public void setTravelDate(String date) {
+		this.travelDate = date;
 	}
 
-	public String getHoraSaida() {
-		return horaSaida;
+	public String getDepartureHour() {
+		return departureHour;
 	}
 
-	public void setHoraSaida(String horaSaida) {
-		this.horaSaida = horaSaida;
+	public void setDepartureHour(String departureHour) {
+		this.departureHour = departureHour;
 	}
 
-	public String getRegressoProvavel() {
-		return regressoProvavel;
+	public String getLikelyReturn() {
+		return likelyReturn;
 	}
 
-	public void setRegressoProvavel(String regressoProvavel) {
-		this.regressoProvavel = regressoProvavel;
+	public void setLikelyReturn(String likelyReturn) {
+		this.likelyReturn = likelyReturn;
 	}
 
-	public String getHora() {
-		return hora;
+	public String getHour() {
+		return hour;
 	}
 
-	public void setHora(String hora) {
-		this.hora = hora;
+	public void setHour(String hour) {
+		this.hour = hour;
 	}
 
-	public String getLocaSaida() {
-		return localSaida;
+	public String getDeparturePoint() {
+		return departurePoint;
 	}
 
-	public void setLocaSaida(String locaSaida) {
-		this.localSaida = locaSaida;
+	public void setDeparturePoint(String departurePoint) {
+		this.departurePoint = departurePoint;
 	}
 
-	public String getHorarioDeChegada() {
-		return horarioDeChegada;
+	public String getArrivalTime() {
+		return arrivalTime;
 	}
 
-	public void setHorarioDeChegada(String horarioDeChegada) {
-		this.horarioDeChegada = horarioDeChegada;
+	public void setArrivalTime(String arrivalTime) {
+		this.arrivalTime = arrivalTime;
 	}
 
-	public String getNumeroVoo() {
-		return numeroVoo;
+	public String getFlightNumber() {
+		return flightNumber;
 	}
 
-	public void setNumeroVoo(String numeroVoo) {
-		this.numeroVoo = numeroVoo;
+	public void setFlightNumber(String flightNumber) {
+		this.flightNumber = flightNumber;
 	}
 
-	public String getEmpresaAerea() {
-		return empresaAerea;
+	public String getAirCompany() {
+		return airCompany;
 	}
 
-	public void setEmpresaAerea(String empresaAerea) {
-		this.empresaAerea = empresaAerea;
+	public void setAirCompany(String airCompany) {
+		this.airCompany = airCompany;
 	}
 
-	public String getOrigemViagem() {
-		return OrigemViagem;
+	public String getTravelOrigin() {
+		return travelOrigin;
 	}
 
-	public void setOrigemViagem(String origemViagem) {
-		OrigemViagem = origemViagem;
+	public void setTravelOrigin(String travelOrigin) {
+		travelOrigin = travelOrigin;
 	}
 
 	public String getSetorResponsávelMotorista() {

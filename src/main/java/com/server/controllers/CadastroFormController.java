@@ -39,7 +39,7 @@ public class CadastroFormController {
 		BindingResult result)throws NoSuchAlgorithmException {
 		
 		Response<Form> response = new Response<Form>();		
-		System.out.println(formulario.getDataRequisição() + formulario.getNome());
+		System.out.println(formulario.getRequestDate() + formulario.getName());
 
 		this.formService.persistir(formulario);
 		
