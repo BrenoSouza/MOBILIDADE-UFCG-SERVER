@@ -28,7 +28,7 @@ public class Form implements Serializable{
 	private String telefone;
 	
 	//datas e horas da viagem
-	private String data;
+	private String dataViagem;
 	private String horaSaida;
 	private String regressoProvavel;
 	private String hora;
@@ -108,11 +108,11 @@ public class Form implements Serializable{
 	}
 
 	public String getData() {
-		return data;
+		return dataViagem;
 	}
 
 	public void setData(String data) {
-		this.data = data;
+		this.dataViagem = data;
 	}
 
 	public String getHoraSaida() {
