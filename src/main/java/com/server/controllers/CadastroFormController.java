@@ -27,7 +27,7 @@ import com.server.response.Response;
 
 
 @RestController
-@RequestMapping("/server/cadastro/form")
+@RequestMapping("form")
 @CrossOrigin(origins = "*")
 public class CadastroFormController {
 
