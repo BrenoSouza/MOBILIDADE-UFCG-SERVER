@@ -42,7 +42,7 @@ public class Form implements Serializable{
 	private String travelOrigin;
 	
 	//responsável pela diarias do motorista
-	private String setorResponsávelMotorista;
+	private String driverSectorResponsibility;
 	
 	//construtor padrão
 	public Form () {
@@ -176,15 +176,15 @@ public class Form implements Serializable{
 	}
 
 	public void setTravelOrigin(String travelOrigin) {
-		travelOrigin = travelOrigin;
+		this.travelOrigin = travelOrigin;
 	}
 
-	public String getSetorResponsávelMotorista() {
-		return setorResponsávelMotorista;
+	public String getDriverSectorResponsibility() {
+		return driverSectorResponsibility;
 	}
 
-	public void setSetorResponsávelMotorista(String setorResponsávelMotorista) {
-		this.setorResponsávelMotorista = setorResponsávelMotorista;
+	public void setDriverSectorResponsibility(String driverSectorResponsibility) {
+		this.driverSectorResponsibility = driverSectorResponsibility;
 	}
 	
 }
