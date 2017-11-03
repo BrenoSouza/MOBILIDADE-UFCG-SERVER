@@ -1,5 +1,7 @@
 package com.server.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,62 +17,19 @@ public class FormServiceImpl implements FormService {
 
 	@Override
 	public Form findByid(Long Id) {
-		return this.formRepository.findByid(Id);
+		return formRepository.findByid(Id);
 	}
 
 	@Override
-	public Form findBysetorRequisitante(String setorRequisitante) {
-		return this.formRepository.findBysetorRequisitante(setorRequisitante);
+	public List<Form> findAll() {
+		return formRepository.findAll();
 	}
-
-	@Override
-	public Form findBydataRequisição(String dataRequisição) {
-		return this.formRepository.findBydataRequisição(dataRequisição);
-	}
-
-	@Override
-	public Form findBydestino(String destino) {
-		return this.formRepository.findBydestino(destino);
-	}
-
-	@Override
-	public Form findBynome(String nome) {
-		return this.formRepository.findBynome(nome);
-	}
-
-	@Override
-	public Form findBytelefone(String telefone) {
-		return this.formRepository.findBytelefone(telefone);
-	}
-
-	@Override
-	public Form findBydataViagem(String dataViagem) {
-		return this.formRepository.findBydataViagem(dataViagem)
-;	}
-
-	@Override
-	public Form findByhoraSaida(String horaSaida) {
-		return this.formRepository.findByhoraSaida(horaSaida);
-	}
-
-	@Override
-	public Form findByregressoProvavel(String regressoProvavel) {
-		return this.formRepository.findByregressoProvavel(regressoProvavel);
-	}
-
-	@Override
-	public Form findByhora(String hora) {
-		return this.formRepository.findByhora(hora);
-	}
-
-	/*@Override
-	public Form findbylocaSaida(String locaSaida) {
-		return this.formRepository.findbylocalSaida(locaSaida);
-	}*/
 
 	@Override
 	public Form persistir(Form formulario) {
-		return this.formRepository.save(formulario);
+		return formRepository.save(formulario);
 	}
+
+	
 
 }

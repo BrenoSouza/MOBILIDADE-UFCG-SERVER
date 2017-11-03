@@ -1,164 +1,174 @@
 package com.server.dtos;
 
 public class FormDto {
-
-	//dados da viagem
-	private String setorRequisitante;
-	private String dataRequisição;
-	private String destino;
-	private String objetivo;
+private Long id;
 	
-	//dados do solicitante
-	private String nome;
-	private String telefone;
-		
-	//datas e horas da viagem
-	private String dataViagem;
-	private String horaSaida;
-	private String regressoProvavel;
-	private String hora;
-	private String locaSaida;
-		
-	//passageiros no aeroporto
-		
-	private String horarioDeChegada;
-	private String numeroVoo;
-	private String empresaAerea;
-	private String OrigemViagem;
-		
+	//dados da viagem
+	private String requesterSector;
+	private String requestDate;
+	private String destination;
+	private String purpose;
+	
+	//dados do passageiro
+	private String name;
+	private String phone;
+	
+	//data e hora da viagem
+	private String travelDate;
+	private String departureHour;
+	private String returnDate;
+	private String returnHour;
+	private String departurePoint;
+	
+	//passageiros no aeroporto/rodoviaria
+	
+	private String arrivalTime;
+	private String flightNumber;
+	private String airCompany;
+	private String travelOrigin;
+	
 	//responsável pela diarias do motorista
-	private String setorResponsávelMotorista;
+	private String driverSectorResponsibility;
 	
 	public FormDto() {
 		
 	}
 
-	public String getSetorRequisitante() {
-		return setorRequisitante;
+	public Long getId() {
+		return id;
 	}
 
-	public void setSetorRequisitante(String setorRequisitante) {
-		this.setorRequisitante = setorRequisitante;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getDataRequisição() {
-		return dataRequisição;
+	public String getRequesterSector() {
+		return requesterSector;
 	}
 
-	public void setDataRequisição(String dataRequisição) {
-		this.dataRequisição = dataRequisição;
+	public void setRequesterSector(String requesterSector) {
+		this.requesterSector = requesterSector;
 	}
 
-	public String getDestino() {
-		return destino;
+	public String getRequestDate() {
+		return requestDate;
 	}
 
-	public void setDestino(String destino) {
-		this.destino = destino;
+	public void setRequestDate(String requestDate) {
+		this.requestDate = requestDate;
 	}
 
-	public String getObjetivo() {
-		return objetivo;
+	public String getDestination() {
+		return destination;
 	}
 
-	public void setObjetivo(String objetivo) {
-		this.objetivo = objetivo;
+	public void setDestination(String destination) {
+		this.destination = destination;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getPurpose() {
+		return purpose;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setPurpose(String purpose) {
+		this.purpose = purpose;
 	}
 
-	public String getTelefone() {
-		return telefone;
+	public String getName() {
+		return name;
 	}
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getDataViagem() {
-		return dataViagem;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setDataViagem(String dataViagem) {
-		this.dataViagem = dataViagem;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
-	public String getHoraSaida() {
-		return horaSaida;
+	public String getTravelDate() {
+		return travelDate;
 	}
 
-	public void setHoraSaida(String horaSaida) {
-		this.horaSaida = horaSaida;
+	public void setTravelDate(String travelDate) {
+		this.travelDate = travelDate;
 	}
 
-	public String getRegressoProvavel() {
-		return regressoProvavel;
+	public String getDepartureHour() {
+		return departureHour;
 	}
 
-	public void setRegressoProvavel(String regressoProvavel) {
-		this.regressoProvavel = regressoProvavel;
+	public void setDepartureHour(String departureHour) {
+		this.departureHour = departureHour;
 	}
 
-	public String getHora() {
-		return hora;
+	public String getReturnDate() {
+		return returnDate;
 	}
 
-	public void setHora(String hora) {
-		this.hora = hora;
+	public void setReturnDate(String returnDate) {
+		this.returnDate = returnDate;
 	}
 
-	public String getLocaSaida() {
-		return locaSaida;
+	public String getReturnHour() {
+		return returnHour;
 	}
 
-	public void setLocaSaida(String locaSaida) {
-		this.locaSaida = locaSaida;
+	public void setReturnHour(String returnHour) {
+		this.returnHour = returnHour;
 	}
 
-	public String getHorarioDeChegada() {
-		return horarioDeChegada;
+	public String getDeparturePoint() {
+		return departurePoint;
 	}
 
-	public void setHorarioDeChegada(String horarioDeChegada) {
-		this.horarioDeChegada = horarioDeChegada;
+	public void setDeparturePoint(String departurePoint) {
+		this.departurePoint = departurePoint;
 	}
 
-	public String getNumeroVoo() {
-		return numeroVoo;
+	public String getArrivalTime() {
+		return arrivalTime;
 	}
 
-	public void setNumeroVoo(String numeroVoo) {
-		this.numeroVoo = numeroVoo;
+	public void setArrivalTime(String arrivalTime) {
+		this.arrivalTime = arrivalTime;
 	}
 
-	public String getEmpresaAerea() {
-		return empresaAerea;
+	public String getFlightNumber() {
+		return flightNumber;
 	}
 
-	public void setEmpresaAerea(String empresaAerea) {
-		this.empresaAerea = empresaAerea;
+	public void setFlightNumber(String flightNumber) {
+		this.flightNumber = flightNumber;
 	}
 
-	public String getOrigemViagem() {
-		return OrigemViagem;
+	public String getAirCompany() {
+		return airCompany;
 	}
 
-	public void setOrigemViagem(String origemViagem) {
-		OrigemViagem = origemViagem;
+	public void setAirCompany(String airCompany) {
+		this.airCompany = airCompany;
 	}
 
-	public String getSetorResponsávelMotorista() {
-		return setorResponsávelMotorista;
+	public String getTravelOrigin() {
+		return travelOrigin;
 	}
 
-	public void setSetorResponsávelMotorista(String setorResponsávelMotorista) {
-		this.setorResponsávelMotorista = setorResponsávelMotorista;
+	public void setTravelOrigin(String travelOrigin) {
+		this.travelOrigin = travelOrigin;
 	}
+
+	public String getDriverSectorResponsibility() {
+		return driverSectorResponsibility;
+	}
+
+	public void setDriverSectorResponsibility(String driverSectorResponsibility) {
+		this.driverSectorResponsibility = driverSectorResponsibility;
+	}
+
 	
 }

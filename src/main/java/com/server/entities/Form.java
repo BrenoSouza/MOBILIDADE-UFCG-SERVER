@@ -30,8 +30,8 @@ public class Form implements Serializable{
 	//datas e horas da viagem
 	private String travelDate;
 	private String departureHour;
-	private String likelyReturn;
-	private String hour;
+	private String returnDate;
+	private String returnHour;
 	private String departurePoint;
 	
 	//passageiros no aeroporto
@@ -123,20 +123,20 @@ public class Form implements Serializable{
 		this.departureHour = departureHour;
 	}
 
-	public String getLikelyReturn() {
-		return likelyReturn;
+	public String getReturnDate() {
+		return returnDate;
 	}
 
-	public void setLikelyReturn(String likelyReturn) {
-		this.likelyReturn = likelyReturn;
+	public void setReturnDate(String returnDate) {
+		this.returnDate = returnDate;
 	}
 
-	public String getHour() {
-		return hour;
+	public String getReturnHour() {
+		return returnHour;
 	}
 
-	public void setHour(String hour) {
-		this.hour = hour;
+	public void setReturnHour(String returnHour) {
+		this.returnHour = returnHour;
 	}
 
 	public String getDeparturePoint() {
