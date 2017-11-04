@@ -28,5 +28,8 @@ public interface FormService {
 	 * @param Id
 	 * @return List<Form>
 	 */
-	Form persistir(Form formulario);
+	Form save(Form form);
+	
+	
+	
 }

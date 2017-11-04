@@ -16,8 +16,8 @@ public class FormServiceImpl implements FormService {
 	private FormRepository formRepository;
 
 	@Override
-	public Form findByid(Long Id) {
-		return formRepository.findByid(Id);
+	public Form findByid(Long id) {
+		return formRepository.findByid(id);
 	}
 
 	@Override
@@ -26,10 +26,8 @@ public class FormServiceImpl implements FormService {
 	}
 
 	@Override
-	public Form persistir(Form formulario) {
+	public Form save(Form formulario) {
 		return formRepository.save(formulario);
 	}
-
-	
 
 }
