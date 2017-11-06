@@ -1,32 +1,35 @@
 package com.server.services;
 
+import java.util.List;
+
 import com.server.entities.Form;
 
 public interface FormService {
 	
-	//busca por Id
+	/**
+	 * Return Form by Id
+	 * 
+	 * @param Id
+	 * @return Form
+	 */
 	Form findByid(Long Id);
 	
-	//busca por dados da viagem
-	Form findBysetorRequisitante(String setorRequisitante);
+	/**
+	 * Return all Form
+	 * 
+	 * @param Id
+	 * @return List<Form>
+	 */
+	List<Form> findAll();
 	
-	Form findBydataRequisição(String dataRequisição);
+	/**
+	 * Save new Form in database
+	 * 
+	 * @param Id
+	 * @return List<Form>
+	 */
+	Form save(Form form);
 	
-	Form findBydestino(String destino);
 	
-	//busca pelo solicitate 
 	
-	Form findBynome(String nome);
-	Form findBytelefone(String telefone);
-	
-	//busca por datas e horas da viagem
-	Form findBydataViagem(String dataViagem);
-	Form findByhoraSaida(String horaSaida);
-	Form findByregressoProvavel(String regressoProvavel);
-	Form findByhora(String hora);
-	//Form findbylocaSaida(String locaSaida);
-	
-	//Salvar formulário
- 
-	Form persistir(Form formulario);
 }
