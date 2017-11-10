@@ -12,7 +12,11 @@ import javax.persistence.Table;
 @Table(name = "driver")
 public class Driver implements Serializable{
 	
+	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Long id;
+	
+	private int registration;
 	
 	private String name;
 	
@@ -24,14 +28,20 @@ public class Driver implements Serializable{
 		
 	}
 
-	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public int getRegistration() {
+		return registration;
+	}
+
+	public void setRegistration(int registration) {
+		this.registration = registration;
 	}
 
 	public String getName() {
@@ -57,8 +67,6 @@ public class Driver implements Serializable{
 	public void setCnh(String cnh) {
 		this.cnh = cnh;
 	}
-	
-	
-	
 
+	
 }

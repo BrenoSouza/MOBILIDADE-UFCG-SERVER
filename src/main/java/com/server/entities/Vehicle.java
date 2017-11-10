@@ -13,6 +13,8 @@ import javax.persistence.Table;
 @Table(name = "vehicle")
 public class Vehicle implements Serializable{
 	
+	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Long id;
 	
 	private String category;
@@ -39,8 +41,6 @@ public class Vehicle implements Serializable{
 		
 	}
 
-	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
@@ -88,7 +88,5 @@ public class Vehicle implements Serializable{
 	public void setCrlv(String crlv) {
 		this.crlv = crlv;
 	}
-	
-	
 
 }
