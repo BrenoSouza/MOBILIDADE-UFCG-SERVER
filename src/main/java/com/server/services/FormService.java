@@ -7,7 +7,7 @@ import com.server.entities.Form;
 public interface FormService {
 	
 	/**
-	 * Return Form by Id
+	 * Return Form by Id.
 	 * 
 	 * @param Id
 	 * @return Form
@@ -15,7 +15,7 @@ public interface FormService {
 	Form findByid(Long Id);
 	
 	/**
-	 * Return all Form
+	 * Return all Form.
 	 * 
 	 * @param Id
 	 * @return List<Form>
@@ -23,12 +23,20 @@ public interface FormService {
 	List<Form> findAll();
 	
 	/**
-	 * Save new Form in database
+	 * Save new Form in database.
 	 * 
 	 * @param Id
 	 * @return List<Form>
 	 */
 	Form save(Form form);
+	
+	/**
+	 * Delete form by id.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	void deleteById(Long id);
 	
 	
 	

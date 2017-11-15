@@ -30,4 +30,9 @@ public class FormServiceImpl implements FormService {
 		return formRepository.save(formulario);
 	}
 
+	@Override
+	public void deleteById(Long id) {
+		formRepository.deleteById(id);
+	}
+
 }
