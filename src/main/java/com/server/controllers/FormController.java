@@ -29,7 +29,7 @@ import com.server.response.Response;
 @RestController
 @RequestMapping("form")
 @CrossOrigin(origins = "*")
-public class CadastroFormController {
+public class FormController {
 
 	@Autowired
 	private FormService formService;
