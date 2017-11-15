@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,13 +40,13 @@ public class CadastroFormController {
 	public ResponseEntity<Response<Form>> register(@RequestBody Form form,
 		BindingResult result)throws NoSuchAlgorithmException {
 		
-		// Response object
+		// Response object.
 		Response<Form> response = new Response<Form>();	
 		
-		// Save form in the database
+		// Save form in the database.
 		this.formService.save(form);
 		
-		// Add success message to response object
+		// Add success message to response object.
 		response.addSuccessMessage("Cadastro realizado com sucesso.");
 		
 		return ResponseEntity.ok(response);
@@ -91,8 +92,21 @@ public class CadastroFormController {
 		// Update form in database.
 		formService.save(updateForm);	
 		
-		// Add success message to response object
+		// Add success message to response object.
 		response.addSuccessMessage("atualização realizada com sucesso");
+		
+		return ResponseEntity.ok(response);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Response<Form>> deleteForm(@PathVariable("id") Long id){
+		
+		// Response object.
+		Response<Form> response = new Response<Form>();
+		
+		// Delete form object to the database.
+		formService.deleteById(id);
+		
 		
 		return ResponseEntity.ok(response);
 	}
