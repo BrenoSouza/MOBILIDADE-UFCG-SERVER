@@ -30,16 +30,11 @@ public class PdfController {
 	private String text =null;
 	
 	@PostMapping("/")
-	public String handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
-		System.out.println("pdf adiconado com sucesso");
-		
-		//File file2 = new File(text);
-		//file.transferTo(file2);
+	public ResponseEntity<Response<String>> handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
+			
 		try (PDDocument document = PDDocument.load((file.getBytes()))) {
 			
-            document.getClass();
-
-            
+            document.getClass();            
            
             if (!document.isEncrypted()) {
 
@@ -50,22 +45,10 @@ public class PdfController {
 
                 String pdfFileInText = tStripper.getText(document);
                 text = pdfFileInText;
-                //System.out.println("Text:" + st);
-
-				// split by whitespace
-              //  String lines[] = pdfFileInText.split("\\r?\\n");
-              //  for (String line : lines) {
-              //      System.out.println(line);
-            //    }
 
             }
 
         }
-		System.out.println(text);
-		return text;
-	}
-	@GetMapping
-	public ResponseEntity<Response<String>> getPdf(){
 		
 		// Response object.
 		Response<String> response =  new Response<String>();
