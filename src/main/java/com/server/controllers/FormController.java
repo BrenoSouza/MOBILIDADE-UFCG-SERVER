@@ -2,9 +2,12 @@ package com.server.controllers;
 
 
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.validation.Valid;
 
-import org.jboss.logging.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +41,12 @@ public class FormController {
 	
 	@PostMapping
 	public ResponseEntity<Response<Form>> register(@RequestBody Form form,
-		BindingResult result)throws NoSuchAlgorithmException {
+		BindingResult result)throws NoSuchAlgorithmException, ParseException {
 		
+		//SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		//Date date = formatter.parse("2000-11-11");
+		Date date = new Date();
+		form.setRequestDate(date);
 		// Response object.
 		Response<Form> response = new Response<Form>();	
 		

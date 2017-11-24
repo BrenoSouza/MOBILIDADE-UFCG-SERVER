@@ -12,6 +12,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "form")
 public class Form implements Serializable{
@@ -26,6 +28,7 @@ public class Form implements Serializable{
 	//dados da viagem
 	private String requesterSector;
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date requestDate;
 	private String destination;
 	private String purpose;
@@ -36,18 +39,23 @@ public class Form implements Serializable{
 	
 	//datas e horas da viagem
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date travelDate;
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date departureHour;
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date returnDate;
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date returnHour;
 	private String departurePoint;
 	private String address;
 	
 	//passageiros no aeroporto
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date arrivalTime;
 	private String flightNumber;
 	private String airCompany;
