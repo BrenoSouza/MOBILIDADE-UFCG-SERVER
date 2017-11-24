@@ -7,11 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "admin")
 public class Admin implements Serializable{
 
+	@Transient
 	private static final long serialVersionUID = 1L;
 
 	@Id

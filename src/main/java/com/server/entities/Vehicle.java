@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -17,6 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "vehicle")
 public class Vehicle implements Serializable{
 
+	@Transient
 	private static final long serialVersionUID = 1L;
 
 	@Id
