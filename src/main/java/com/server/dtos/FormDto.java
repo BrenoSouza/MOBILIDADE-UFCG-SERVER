@@ -1,11 +1,13 @@
 package com.server.dtos;
 
+import java.util.Date;
+
 public class FormDto {
 private Long id;
 	
 	//dados da viagem
 	private String requesterSector;
-	private String requestDate;
+	private Date requestDate;
 	private String destination;
 	private String purpose;
 	
@@ -14,21 +16,25 @@ private Long id;
 	private String phone;
 	
 	//data e hora da viagem
-	private String travelDate;
-	private String departureHour;
-	private String returnDate;
-	private String returnHour;
+	private Date travelDate;
+	private Date departureHour;
+	private Date returnDate;
+	private Date returnHour;
 	private String departurePoint;
+	private String address;
 	
 	//passageiros no aeroporto/rodoviaria
 	
-	private String arrivalTime;
+	private Date arrivalTime;
 	private String flightNumber;
 	private String airCompany;
 	private String travelOrigin;
 	
 	//responsável pela diarias do motorista
 	private String driverSectorResponsibility;
+	
+	private String requestJustification;
+	private String status;
 	
 	public FormDto() {
 		
@@ -50,11 +56,11 @@ private Long id;
 		this.requesterSector = requesterSector;
 	}
 
-	public String getRequestDate() {
+	public Date getRequestDate() {
 		return requestDate;
 	}
 
-	public void setRequestDate(String requestDate) {
+	public void setRequestDate(Date requestDate) {
 		this.requestDate = requestDate;
 	}
 
@@ -90,35 +96,35 @@ private Long id;
 		this.phone = phone;
 	}
 
-	public String getTravelDate() {
+	public Date getTravelDate() {
 		return travelDate;
 	}
 
-	public void setTravelDate(String travelDate) {
+	public void setTravelDate(Date travelDate) {
 		this.travelDate = travelDate;
 	}
 
-	public String getDepartureHour() {
+	public Date getDepartureHour() {
 		return departureHour;
 	}
 
-	public void setDepartureHour(String departureHour) {
+	public void setDepartureHour(Date departureHour) {
 		this.departureHour = departureHour;
 	}
 
-	public String getReturnDate() {
+	public Date getReturnDate() {
 		return returnDate;
 	}
 
-	public void setReturnDate(String returnDate) {
+	public void setReturnDate(Date returnDate) {
 		this.returnDate = returnDate;
 	}
 
-	public String getReturnHour() {
+	public Date getReturnHour() {
 		return returnHour;
 	}
 
-	public void setReturnHour(String returnHour) {
+	public void setReturnHour(Date returnHour) {
 		this.returnHour = returnHour;
 	}
 
@@ -130,11 +136,11 @@ private Long id;
 		this.departurePoint = departurePoint;
 	}
 
-	public String getArrivalTime() {
+	public Date getArrivalTime() {
 		return arrivalTime;
 	}
 
-	public void setArrivalTime(String arrivalTime) {
+	public void setArrivalTime(Date arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
 
@@ -168,6 +174,30 @@ private Long id;
 
 	public void setDriverSectorResponsibility(String driverSectorResponsibility) {
 		this.driverSectorResponsibility = driverSectorResponsibility;
+	}
+
+	public String getRequestJustification() {
+		return requestJustification;
+	}
+
+	public void setRequestJustification(String requestJustification) {
+		this.requestJustification = requestJustification;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	
