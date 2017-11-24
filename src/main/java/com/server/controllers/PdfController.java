@@ -31,7 +31,7 @@ public class PdfController {
 
 	private String text =null;
 	
-	@PostMapping()
+	@PostMapping(headers = "content-type=multipart/*")
 	public ResponseEntity<Response<String>> handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
 			
 		try (PDDocument document = PDDocument.load((file.getBytes()))) {
