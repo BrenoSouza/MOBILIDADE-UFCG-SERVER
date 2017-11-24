@@ -13,6 +13,7 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,11 +26,12 @@ import com.server.response.Response;
 
 @Controller
 @RequestMapping(value = "/pdf")
+@CrossOrigin(origins = "*")
 public class PdfController {
 
 	private String text =null;
 	
-	@PostMapping("/")
+	@PostMapping()
 	public ResponseEntity<Response<String>> handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
 			
 		try (PDDocument document = PDDocument.load((file.getBytes()))) {
