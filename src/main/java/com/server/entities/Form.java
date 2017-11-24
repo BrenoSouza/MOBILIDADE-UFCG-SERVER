@@ -8,11 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "form")
 public class Form implements Serializable{
 
+	@Transient
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -21,6 +25,7 @@ public class Form implements Serializable{
 	
 	//dados da viagem
 	private String requesterSector;
+	@Temporal(TemporalType.DATE)
 	private Date requestDate;
 	private String destination;
 	private String purpose;
@@ -30,15 +35,19 @@ public class Form implements Serializable{
 	private String phone;
 	
 	//datas e horas da viagem
+	@Temporal(TemporalType.DATE)
 	private Date travelDate;
+	@Temporal(TemporalType.DATE)
 	private Date departureHour;
+	@Temporal(TemporalType.DATE)
 	private Date returnDate;
+	@Temporal(TemporalType.DATE)
 	private Date returnHour;
 	private String departurePoint;
 	private String address;
 	
 	//passageiros no aeroporto
-	
+	@Temporal(TemporalType.DATE)
 	private Date arrivalTime;
 	private String flightNumber;
 	private String airCompany;
