@@ -1,6 +1,7 @@
 package com.server.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,13 +13,15 @@ import javax.persistence.Table;
 @Table(name = "form")
 public class Form implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Long id;
 	
 	//dados da viagem
 	private String requesterSector;
-	private String requestDate;
+	private Date requestDate;
 	private String destination;
 	private String purpose;
 	
@@ -27,21 +30,25 @@ public class Form implements Serializable{
 	private String phone;
 	
 	//datas e horas da viagem
-	private String travelDate;
-	private String departureHour;
-	private String returnDate;
-	private String returnHour;
+	private Date travelDate;
+	private Date departureHour;
+	private Date returnDate;
+	private Date returnHour;
 	private String departurePoint;
+	private String address;
 	
 	//passageiros no aeroporto
 	
-	private String arrivalTime;
+	private Date arrivalTime;
 	private String flightNumber;
 	private String airCompany;
 	private String travelOrigin;
 	
 	//responsável pela diarias do motorista
 	private String driverSectorResponsibility;
+	
+	private String requestJustification;
+	private String status;
 	
 	//construtor padrão
 	public Form () {
@@ -64,11 +71,11 @@ public class Form implements Serializable{
 		this.requesterSector = requesterSector;
 	}
 
-	public String getRequestDate() {
+	public Date getRequestDate() {
 		return requestDate;
 	}
 
-	public void setRequestDate(String requestDate) {
+	public void setRequestDate(Date requestDate) {
 		this.requestDate = requestDate;
 	}
 
@@ -104,35 +111,35 @@ public class Form implements Serializable{
 		this.phone = phone;
 	}
 
-	public String getTravelDate() {
+	public Date getTravelDate() {
 		return travelDate;
 	}
 
-	public void setTravelDate(String date) {
+	public void setTravelDate(Date date) {
 		this.travelDate = date;
 	}
 
-	public String getDepartureHour() {
+	public Date getDepartureHour() {
 		return departureHour;
 	}
 
-	public void setDepartureHour(String departureHour) {
+	public void setDepartureHour(Date departureHour) {
 		this.departureHour = departureHour;
 	}
 
-	public String getReturnDate() {
+	public Date getReturnDate() {
 		return returnDate;
 	}
 
-	public void setReturnDate(String returnDate) {
+	public void setReturnDate(Date returnDate) {
 		this.returnDate = returnDate;
 	}
 
-	public String getReturnHour() {
+	public Date getReturnHour() {
 		return returnHour;
 	}
 
-	public void setReturnHour(String returnHour) {
+	public void setReturnHour(Date returnHour) {
 		this.returnHour = returnHour;
 	}
 
@@ -144,11 +151,11 @@ public class Form implements Serializable{
 		this.departurePoint = departurePoint;
 	}
 
-	public String getArrivalTime() {
+	public Date getArrivalTime() {
 		return arrivalTime;
 	}
 
-	public void setArrivalTime(String arrivalTime) {
+	public void setArrivalTime(Date arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
 
@@ -182,6 +189,55 @@ public class Form implements Serializable{
 
 	public void setDriverSectorResponsibility(String driverSectorResponsibility) {
 		this.driverSectorResponsibility = driverSectorResponsibility;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getRequestJustification() {
+		return requestJustification;
+	}
+
+	public void setRequestJustification(String requestJustification) {
+		this.requestJustification = requestJustification;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Form other = (Form) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 	
 }
