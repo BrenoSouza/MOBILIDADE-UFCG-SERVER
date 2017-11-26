@@ -47,8 +47,10 @@ public class FormController {
 		//Date date = formatter.parse("2000-11-11");
 		Date date = new Date();
 		form.setRequestDate(date);
+		
+		form.setStatus("PENDENTE");
 		// Response object.
-		Response<Form> response = new Response<Form>();	
+		Response<Form> response = new Response<Form>();
 		
 		// Save form in the database.
 		this.formService.save(form);
