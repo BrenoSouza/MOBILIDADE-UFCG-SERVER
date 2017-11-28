@@ -27,6 +27,10 @@ public class Driver implements Serializable{
 	private String cpf;
 	
 	private String cnh;
+	
+	private String address;
+	
+	private String phone;
 
 	public Driver() {
 		
@@ -70,6 +74,22 @@ public class Driver implements Serializable{
 
 	public void setCnh(String cnh) {
 		this.cnh = cnh;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	@Override

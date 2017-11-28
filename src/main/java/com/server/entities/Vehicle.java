@@ -1,18 +1,13 @@
 package com.server.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "vehicle")
@@ -29,9 +24,7 @@ public class Vehicle implements Serializable{
 	
 	private int capacity;
 	
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date year;
+	private int year;
 	
 	private String brand;
 	
@@ -43,7 +36,7 @@ public class Vehicle implements Serializable{
 	
 	private String color;
 	
-	public Vehicle(Long id, String vehicle, int capacity, Date year, String brand, String plate,
+	public Vehicle(Long id, String vehicle, int capacity, int year, String brand, String plate,
 			String conservationState, String fuel, String color) {
 		super();
 		this.id = id;
@@ -86,11 +79,11 @@ public class Vehicle implements Serializable{
 		this.capacity = capacity;
 	}
 
-	public Date getYear() {
+	public int getYear() {
 		return year;
 	}
 
-	public void setYear(Date year) {
+	public void setYear(int year) {
 		this.year = year;
 	}
 
