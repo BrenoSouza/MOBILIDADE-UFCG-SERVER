@@ -21,7 +21,7 @@ public class Response<T> {
 	}
 
 	public void setData(T data) {
-		this.data = data;
+		this.data = data; 
 	}
 
 	public List<String> getErrors() {		
@@ -40,7 +40,30 @@ public class Response<T> {
 	}
 	
 	public void setData(List<T> findAll) {
-		this.dataList = findAll;
+		//List<T> interSectList = new ArrayList<T>();
+		if(dataList == null) {
+			this.dataList = findAll;
+			return;
+		}else {
+			for (int i = 0; i < findAll.size(); i++) {
+				if(! dataList.contains(findAll.get(i))) {
+					dataList.add(findAll.get(i));
+				}				
+			}
+		}
+		
+		/*if(tipo) {
+			
+		}else {
+			for (int i = 0; i < findAll.size(); i++) {
+				if(dataList.contains(findAll.get(i))) {
+					interSectList.add(findAll.get(i));
+				}
+			}
+			this.dataList = interSectList;
+		}
+		*/
+		
 	}
 	
 	public List<String> getSuccess() {

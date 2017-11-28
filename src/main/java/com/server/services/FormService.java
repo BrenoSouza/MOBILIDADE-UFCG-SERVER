@@ -1,5 +1,6 @@
 package com.server.services;
 
+import java.util.Date;
 import java.util.List;
 
 import com.server.entities.Form;
@@ -13,6 +14,46 @@ public interface FormService {
 	 * @return Form
 	 */
 	Form findByid(Long Id);
+	
+	List<Form> searchByRequesterSector(String requesterSector);
+	
+	List<Form> searchByDestination(String destination);
+	
+	List<Form> searchByPurpose(String purpose);
+	
+	List<Form> searchByName(String name);
+	
+	List<Form> searchByphone(String phone);
+	
+	List<Form> searchBydeparturePoint(String departurePoint);
+	
+	List<Form> searchByaddress(String address);
+	
+	List<Form> searchByflightNumber(String flightNumber);
+	
+	List<Form> searchByairCompany(String airCompany);
+	
+	List<Form> searchBytravelOrigin(String travelOrigin);
+	
+	List<Form> searchBydriverSectorResponsibility(String driverSectorResponsibility);
+	
+	List<Form> searchByrequestJustification(String requestJustification);
+	
+	List<Form> searchBystatus(String status);
+	
+	
+	
+	List<Form> searchAllByRequestDate(Date requestDate);
+	
+	List<Form> searchAllBytravelDate(Date travelDate);
+	
+	List<Form> searchAllBydepartureHour(Date departureHour);
+	
+	List<Form> searchAllByreturnDate(Date returnDate);
+	
+	List<Form> searchAllByreturnHour(Date returnHour);
+	
+	List<Form> searchAllByarrivalTime(Date arrivalTime);
 	
 	/**
 	 * Return all Form.
