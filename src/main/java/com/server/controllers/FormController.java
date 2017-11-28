@@ -44,9 +44,8 @@ public class FormController {
 	public ResponseEntity<Response<Form>> register(@RequestBody Form form,
 		BindingResult result)throws NoSuchAlgorithmException, ParseException {
 		
-		
 		// Response object.
-		Response<Form> response = new Response<Form>();	
+		Response<Form> response = new Response<Form>();
 		
 		// Save form in the database.
 		this.formService.save(form);
