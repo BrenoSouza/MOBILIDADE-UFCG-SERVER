@@ -8,6 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "vehicle")
@@ -19,21 +23,29 @@ public class Vehicle implements Serializable{
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Long id;
-	
+	@NotNull
+	@Size(max = 300)
 	private String vehicle;
-	
+	@NotNull
+	@Max(value = 50)
 	private int capacity;
-	
+	@NotNull
+	@Min(value = 1970)
 	private int year;
-	
+	@NotNull
+	@Size(max = 300)
 	private String brand;
-	
+	@NotNull
+	@Size(max = 300)
 	private String plate;
-	
+	@NotNull
+	@Size(max = 300)
 	private String conservationState;
-	
+	@NotNull
+	@Size(max = 300)
 	private String fuel;
-	
+	@NotNull
+	@Size(max = 300)
 	private String color;
 	
 	public Vehicle(Long id, String vehicle, int capacity, int year, String brand, String plate,
@@ -156,6 +168,13 @@ public class Vehicle implements Serializable{
 		} else if (!plate.equals(other.plate))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Vehicle [vehicle=" + vehicle + ", year=" + year + ", plate=" + plate + ", brand=" + brand
+				+ ", conservationState=" + conservationState + ", fuel=" + fuel + ", color=" + color
+				+ ", capacity="+ capacity + "]";
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "admin")
@@ -21,14 +22,23 @@ public class Admin implements Serializable{
 	private Long id;
 	
 	private int registration;
-	
-	private String email;
-	
-	private String password;
 
+	private String email;
+	@NotNull
+	private String password;
+	@NotNull
 	private String name;
 	
 	private String cpf;
+	
+	public Admin(int registration, String email, String password, String name, String cpf) {
+		super();
+		this.registration = registration;
+		this.email = email;
+		this.password = password;
+		this.name = name;
+		this.cpf = cpf;
+	}
 
 	public Admin() {
 		
@@ -105,6 +115,12 @@ public class Admin implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Admin [id=" + id + ", registration=" + registration + ", email=" + email + ", password=" + password
+				+ ", name=" + name + ", cpf=" + cpf + "]";
 	}
 	
 }

@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "driver")
@@ -21,16 +22,26 @@ public class Driver implements Serializable{
 	private Long id;
 	
 	private int registration;
-	
+	@NotNull
 	private String name;
 	
 	private String cpf;
-	
+	@NotNull
 	private String cnh;
 	
 	private String address;
 	
 	private String phone;
+	
+	public Driver(int registration, String name, String cpf, String cnh, String address, String phone) {
+		super();
+		this.registration = registration;
+		this.name = name;
+		this.cpf = cpf;
+		this.cnh = cnh;
+		this.address = address;
+		this.phone = phone;
+	}
 
 	public Driver() {
 		
@@ -120,6 +131,10 @@ public class Driver implements Serializable{
 		return true;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Driver [id=" + id + ", registration=" + registration + ", name=" + name + ", cpf=" + cpf + ", cnh="
+				+ cnh + ", address=" + address + ", phone=" + phone + "]";
+	}
 	
 }

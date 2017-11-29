@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,47 +28,100 @@ public class Form implements Serializable{
 	private Long id;
 	
 	//dados da viagem
+	@NotNull
+	@Size(max = 300)
 	private String requesterSector;
+	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date requestDate;
+	@NotNull
+	@Size(max = 300)
 	private String destination;
+	@NotNull
+	@Size(max = 300)
 	private String purpose;
 	
 	//dados do solicitante
+	@NotNull
+	@Size(max = 300)
 	private String name;
+	@NotNull
 	private String phone;
 	
 	//datas e horas da viagem
+	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date travelDate;
+	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date departureHour;
+	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date returnDate;
+	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date returnHour;
+	@NotNull
+	@Size(max = 300)
 	private String departurePoint;
+	@NotNull
 	private String address;
 	
 	//passageiros no aeroporto
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date arrivalTime;
+	@Size(max = 10)
 	private String flightNumber;
+	@Size(max = 300)
 	private String airCompany;
+	@Size(max = 300)
 	private String travelOrigin;
 	
 	//responsável pela diarias do motorista
+	@NotNull
+	@Size(max = 300)
 	private String driverSectorResponsibility;
 	
+	@NotNull
+	@Size(max = 300)
 	private String requestJustification;
+	
 	private String status;
 	
+	
+	
+	public Form(String requesterSector, Date requestDate, String destination, String purpose, String name, String phone,
+			Date travelDate, Date departureHour, Date returnDate, Date returnHour, String departurePoint,
+			String address, Date arrivalTime, String flightNumber, String airCompany, String travelOrigin,
+			String driverSectorResponsibility, String requestJustification, String status) {
+		super();
+		this.requesterSector = requesterSector;
+		this.requestDate = requestDate;
+		this.destination = destination;
+		this.purpose = purpose;
+		this.name = name;
+		this.phone = phone;
+		this.travelDate = travelDate;
+		this.departureHour = departureHour;
+		this.returnDate = returnDate;
+		this.returnHour = returnHour;
+		this.departurePoint = departurePoint;
+		this.address = address;
+		this.arrivalTime = arrivalTime;
+		this.flightNumber = flightNumber;
+		this.airCompany = airCompany;
+		this.travelOrigin = travelOrigin;
+		this.driverSectorResponsibility = driverSectorResponsibility;
+		this.requestJustification = requestJustification;
+		this.status = status;
+	}
+
 	//construtor padrão
 	public Form () {
 		
@@ -256,5 +311,16 @@ public class Form implements Serializable{
 			return false;
 		return true;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Form [id=" + id + ", requesterSector=" + requesterSector + ", requestDate=" + requestDate
+				+ ", destination=" + destination + ", purpose=" + purpose + ", name=" + name + ", phone=" + phone
+				+ ", travelDate=" + travelDate + ", departureHour=" + departureHour + ", returnDate=" + returnDate
+				+ ", returnHour=" + returnHour + ", departurePoint=" + departurePoint + ", address=" + address
+				+ ", arrivalTime=" + arrivalTime + ", flightNumber=" + flightNumber + ", airCompany=" + airCompany
+				+ ", travelOrigin=" + travelOrigin + ", driverSectorResponsibility=" + driverSectorResponsibility
+				+ ", requestJustification=" + requestJustification + ", status=" + status + "]";
+	}
+			
 }
