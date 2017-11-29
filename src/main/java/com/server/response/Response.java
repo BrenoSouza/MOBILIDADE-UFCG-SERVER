@@ -5,10 +5,11 @@ import java.util.List;
 
 import com.server.entities.Form;
 
-public class Response<T> {
+
+public class Response<T extends Object> {
 
 	private T data;
-	private List<T> dataList;
+	private List<T> dataList = new ArrayList<T>();
 	private List<String> errors;
 	private List<String> success;
 	
@@ -16,8 +17,9 @@ public class Response<T> {
 	public Response() {
 	}
 
-	public T getData() {
+	public T getData() {		
 		return data;
+		
 	}
 
 	public void setData(T data) {
