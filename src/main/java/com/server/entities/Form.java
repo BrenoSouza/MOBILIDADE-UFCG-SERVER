@@ -31,7 +31,7 @@ public class Form implements Serializable{
 	@NotNull
 	@Size(max = 300)
 	private String requesterSector;
-	@NotNull
+
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date requestDate;
@@ -58,7 +58,6 @@ public class Form implements Serializable{
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date departureHour;
-	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date returnDate;
@@ -69,7 +68,7 @@ public class Form implements Serializable{
 	@NotNull
 	@Size(max = 300)
 	private String departurePoint;
-	@NotNull
+
 	private String address;
 	
 	//passageiros no aeroporto
@@ -88,13 +87,10 @@ public class Form implements Serializable{
 	@Size(max = 300)
 	private String driverSectorResponsibility;
 	
-	@NotNull
 	@Size(max = 300)
 	private String requestJustification;
 	
 	private String status;
-	
-	
 	
 	public Form(String requesterSector, Date requestDate, String destination, String purpose, String name, String phone,
 			Date travelDate, Date departureHour, Date returnDate, Date returnHour, String departurePoint,
