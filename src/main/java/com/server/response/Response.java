@@ -1,82 +1,52 @@
 package com.server.response;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import com.server.entities.Form;
 
+public class Response<T> {
 
-public class Response<T extends Object> {
-
-	private T data;
-	private List<T> dataList = new ArrayList<T>();
+	private Set<T> data;
 	private List<String> errors;
-	private List<String> success;
 	
 
 	public Response() {
-	}
-
-	public T getData() {		
-		return data;
-		
-	}
-
-	public void setData(T data) {
-		this.data = data; 
 	}
 
 	public List<String> getErrors() {		
 		return errors;
 	}
 
-	public void addErrorsMessage(String errorMessage) {
+	public void addErrorMessage(String errorMessage) {
 		if (this.errors == null) {
 			this.errors = new ArrayList<String>();
 		}
 		this.errors.add(errorMessage);
 	}
 
-	public List<T> getDataList() {
-		return dataList;
+	public Set<T> getData() {
+		return data;
 	}
 	
-	public void setData(List<T> findAll) {
-		//List<T> interSectList = new ArrayList<T>();
-		if(dataList == null) {
-			this.dataList = findAll;
-			return;
+	public void setData(List<T> list) {
+		if(data == null) {
+			data = new HashSet<T>(list);
 		}else {
-			for (int i = 0; i < findAll.size(); i++) {
-				if(! dataList.contains(findAll.get(i))) {
-					dataList.add(findAll.get(i));
-				}				
-			}
+			data.retainAll(list);
 		}
-		
-		/*if(tipo) {
-			
-		}else {
-			for (int i = 0; i < findAll.size(); i++) {
-				if(dataList.contains(findAll.get(i))) {
-					interSectList.add(findAll.get(i));
-				}
-			}
-			this.dataList = interSectList;
-		}
-		*/
 		
 	}
 	
-	public List<String> getSuccess() {
-		return this.success;
-	}
-
-	public void addSuccessMessage(String successMessage) {
-		if(this.getSuccess() == null) {
-			this.success =  new ArrayList<String>();
+	public void setData(T object) {
+		if(data == null) {
+			data = new HashSet<T>();
+			data.add(object);
+		}else {
+			data.add(object);
 		}
-		this.success.add(successMessage);
+				
 	}
 
 }
