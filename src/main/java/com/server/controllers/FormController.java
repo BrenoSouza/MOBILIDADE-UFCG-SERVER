@@ -1,12 +1,11 @@
 package com.server.controllers;
 
 
-import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-
-
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -42,7 +41,7 @@ public class FormController {
 	
 	@PostMapping
 	public ResponseEntity<Response<Form>> register(@RequestBody Form form,
-		BindingResult result)throws NoSuchAlgorithmException, ParseException {
+		BindingResult result){
 		
 		// Response object.
 		Response<Form> response = new Response<Form>();
@@ -50,8 +49,7 @@ public class FormController {
 		// Save form in the database.
 		this.formService.save(form);
 		
-		// Add success message to response object.
-		response.addSuccessMessage("Cadastro realizado com sucesso.");
+		response.setData(form);
 		
 		return ResponseEntity.ok(response);
 
@@ -96,8 +94,6 @@ public class FormController {
 		// Update form in database.
 		formService.save(updateForm);	
 		
-		// Add success message to response object.
-		response.addSuccessMessage("atualização realizada com sucesso");
 		
 		return ResponseEntity.ok(response);
 	}
@@ -121,53 +117,108 @@ public class FormController {
 	
 	@GetMapping("/search")
 	public ResponseEntity<Response<Form>> searchByAttribute(
-		@RequestParam(value = "name",             required = false,defaultValue = "¨") String name,
-		@RequestParam(value = "sector",			  required = false,defaultValue = "¨") String sector,
-		@RequestParam(value = "destination",      required = false,defaultValue = "¨") String destination,
-		@RequestParam(value = "purpose",          required = false,defaultValue = "¨") String purpose,
-		@RequestParam(value = "phone",            required = false,defaultValue = "¨") String phone,
-		@RequestParam(value = "departurePoint",   required = false,defaultValue = "¨") String departurePoint,
-		@RequestParam(value = "address",          required = false,defaultValue = "¨") String address,
-		@RequestParam(value = "flightNumber",     required = false,defaultValue = "¨") String flightNumber,
-		@RequestParam(value = "airCompany", 	  required = false,defaultValue = "¨") String airCompany,
-		@RequestParam(value = "travelOrigin", 	  required = false,defaultValue = "¨") String travelOrigin,
-		@RequestParam(value = "driverResponsible",required = false,defaultValue = "¨") String driverResponsible,
-		@RequestParam(value = "justification",    required = false,defaultValue = "¨") String justification,
-		@RequestParam(value = "status",           required = false,defaultValue = "¨") String status,
-		@RequestParam(value = "requestDate",      required = false,defaultValue = "date") @DateTimeFormat(pattern="yyyy-MM-dd") Date requestDate,
-		@RequestParam(value = "travelDate",       required = false,defaultValue = "date") @DateTimeFormat(pattern="yyyy-MM-dd") Date travelDate,
-		@RequestParam(value = "departureHour",    required = false,defaultValue = "date") @DateTimeFormat(pattern="yyyy-MM-dd") Date departureHour,
-		@RequestParam(value = "returnDate",       required = false,defaultValue = "date") @DateTimeFormat(pattern="yyyy-MM-dd") Date returnDate,
-		@RequestParam(value = "returnHour",       required = false,defaultValue = "date") @DateTimeFormat(pattern="yyyy-MM-dd") Date returnHour,
-		@RequestParam(value = "arrivalTime",      required = false,defaultValue = "date") @DateTimeFormat(pattern="yyyy-MM-dd") Date arrivalTime){
+		@RequestParam(value = "name",             required = false) String name,
+		@RequestParam(value = "sector",			  required = false) String sector,
+		@RequestParam(value = "destination",      required = false) String destination,
+		@RequestParam(value = "purpose",          required = false) String purpose,
+		@RequestParam(value = "phone",            required = false) String phone,
+		@RequestParam(value = "departurePoint",   required = false) String departurePoint,
+		@RequestParam(value = "address",          required = false) String address,
+		@RequestParam(value = "flightNumber",     required = false) String flightNumber,
+		@RequestParam(value = "airCompany", 	  required = false) String airCompany,
+		@RequestParam(value = "travelOrigin", 	  required = false) String travelOrigin,
+		@RequestParam(value = "driverResponsible",required = false) String driverResponsible,
+		@RequestParam(value = "justification",    required = false) String justification,
+		@RequestParam(value = "status",           required = false) String status,
+		@RequestParam(value = "requesterSector",  required = false) String requesterSector,
+		@RequestParam(value = "requestDate",      required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date requestDate,
+		@RequestParam(value = "travelDate",       required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date travelDate,
+		@RequestParam(value = "departureHour",    required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date departureHour,
+		@RequestParam(value = "returnDate",       required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date returnDate,
+		@RequestParam(value = "returnHour",       required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date returnHour,
+		@RequestParam(value = "arrivalTime",      required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date arrivalTime){
+	
+		
+		Response<Form> response;
+		
+		response = search(name, sector, destination, purpose, phone, departurePoint, address, flightNumber, airCompany,
+				travelOrigin, driverResponsible, justification, status, requestDate, travelDate, departureHour,
+				returnDate, returnHour, arrivalTime,requesterSector);
+				
+		return ResponseEntity.ok(response);
+	}
+
+	private Response<Form> search(String name, String sector, String destination, String purpose, String phone,
+			String departurePoint, String address, String flightNumber, String airCompany, String travelOrigin,
+			String driverResponsible, String justification, String status, Date requestDate, Date travelDate,
+			Date departureHour, Date returnDate, Date returnHour, Date arrivalTime,String requesterSector) {
 		Response<Form> response = new Response<Form>();
 		
-		response.setData(this.formService.searchByName(name));
-		response.setData(this.formService.searchByRequesterSector(sector));
-		response.setData(this.formService.searchByDestination(destination));
-		response.setData(this.formService.searchByPurpose(purpose));
-		response.setData(this.formService.searchByphone(phone));
-		response.setData(this.formService.searchBydeparturePoint(departurePoint));
-		response.setData(this.formService.searchByaddress(address));
-		response.setData(this.formService.searchByflightNumber(flightNumber));
-		response.setData(this.formService.searchByairCompany(airCompany));
-		response.setData(this.formService.searchBytravelOrigin(travelOrigin));
-		response.setData(this.formService.searchBydriverSectorResponsibility(driverResponsible));
-		response.setData(this.formService.searchByrequestJustification(justification));
-		response.setData(this.formService.searchBystatus(status));
-		response.setData(this.formService.searchAllByRequestDate(requestDate));
-		response.setData(this.formService.searchAllBytravelDate(travelDate));
-		response.setData(this.formService.searchAllBydepartureHour(departureHour));
-		response.setData(this.formService.searchAllByreturnDate(returnDate));
-		response.setData(this.formService.searchAllByreturnHour(returnHour));
-		response.setData(this.formService.searchAllByarrivalTime(arrivalTime));
-				
-		
-		return ResponseEntity.ok(response);
+		if(name != null) {
+			response.setData(this.formService.searchByName(name));
+		}		
+		if(sector != null) {
+			response.setData(this.formService.searchByRequesterSector(sector));
+		}		
+		if(destination != null) {
+			response.setData(this.formService.searchByDestination(destination));
+		}
+		if(purpose != null) {
+			response.setData(this.formService.searchByPurpose(purpose));
+		}
+		if(phone != null) {
+			response.setData(this.formService.searchByphone(phone));
+		}
+		if(departurePoint != null) {
+			response.setData(this.formService.searchBydeparturePoint(departurePoint));
+		}
+		if(address != null) {
+			response.setData(this.formService.searchByaddress(address));
+		}
+		if(flightNumber != null) {
+			response.setData(this.formService.searchByflightNumber(flightNumber));
+		}
+		if(airCompany != null) {
+			response.setData(this.formService.searchByairCompany(airCompany));
+		}
+		if(travelOrigin != null) {
+			response.setData(this.formService.searchBytravelOrigin(travelOrigin));
+		}
+		if(driverResponsible != null) {
+			response.setData(this.formService.searchBydriverSectorResponsibility(driverResponsible));
+		}
+		if(justification != null) {
+			response.setData(this.formService.searchByrequestJustification(justification));
+		}
+		if(status != null) {
+			response.setData(this.formService.searchBystatus(status));
+		}
+		if(requestDate != null) {
+			response.setData(this.formService.searchAllByRequestDate(requestDate));
+		}
+		if(travelDate != null) {
+			response.setData(this.formService.searchAllBytravelDate(travelDate));
+		}
+		if(departureHour != null) {
+			response.setData(this.formService.searchAllBydepartureHour(departureHour));
+		}
+		if(returnDate != null) {
+			response.setData(this.formService.searchAllByreturnDate(returnDate));
+		}
+		if(returnHour != null) {
+			response.setData(this.formService.searchAllByreturnHour(returnHour));
+		}
+		if(arrivalTime != null) {
+			response.setData(this.formService.searchAllByarrivalTime(arrivalTime));
+		}
+		if(requesterSector != null) {
+			response.setData(this.formService.searchByRequesterSector(requesterSector));
+		}
+		return response;
 	}
 	
 	
-	@InitBinder
+	/*@InitBinder
 	public void initBinder(WebDataBinder binder) throws Exception {
 	    final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	    final CustomDateEditor dateEditor = new CustomDateEditor(formatter, true) {
@@ -186,6 +237,6 @@ public class FormController {
 	        }
 	    };
 	    binder.registerCustomEditor(Date.class, dateEditor);
-	}
+	}*/
 	
 }

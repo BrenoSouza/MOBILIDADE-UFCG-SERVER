@@ -2,35 +2,48 @@ package com.server.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
-@Table(name = "driver")
+@Table(name = "tb_driver")
 public class Driver implements Serializable{
 
 	@Transient
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.SEQUENCE)
+	@Column(name = "id_driver")
 	private Long id;
 	
+	@OneToOne(mappedBy="form")
+	private Travel travel;
+	
 	private int registration;
-	@NotNull
+	
+	@NotEmpty(message = "Nome não pode ser vazio.")
 	private String name;
 	
+	@NotEmpty(message = "Cpf não pode ser vazio.")
 	private String cpf;
-	@NotNull
+	
+	@NotEmpty(message = "Cnh não pode ser vazio.")
 	private String cnh;
 	
+	@NotEmpty(message = "Endereço não pode ser vazio.")
 	private String address;
 	
+	@NotEmpty(message = "Telefone não pode ser vazio.")
 	private String phone;
 	
 	public Driver(int registration, String name, String cpf, String cnh, String address, String phone) {

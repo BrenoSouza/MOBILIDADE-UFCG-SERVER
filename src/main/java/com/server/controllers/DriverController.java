@@ -2,8 +2,12 @@ package com.server.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,16 +32,22 @@ public class DriverController {
 	private DriverService driverService;
 	
 	@PostMapping
-	public ResponseEntity<Response<Driver>> registerDriver(@RequestBody Driver driver){
+	public ResponseEntity<Response<Driver>> registerDriver(@Valid @RequestBody Driver driver, BindingResult result){
 		
 		// Response Object.
 		Response<Driver> response =  new Response<Driver>();
 		
+		if(result.hasErrors()) {
+			result.getAllErrors().forEach(error -> response.addErrorMessage(error.getDefaultMessage()));
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+		
 		// Save vehicle in the database.
 		this.driverService.save(driver);
+		response.setData(driver);
 		
-		
-		return ResponseEntity.ok(response);
+	
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
 	@GetMapping

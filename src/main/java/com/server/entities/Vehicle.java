@@ -2,10 +2,12 @@ package com.server.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Max;
@@ -21,29 +23,41 @@ public class Vehicle implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.SEQUENCE)
+	@Column(name = "id_vehicle")
 	private Long id;
+	
+	@OneToOne(mappedBy="form")
+	private Travel travel;
+	
 	@NotNull
 	@Size(max = 300)
 	private String vehicle;
+	
 	@NotNull
 	@Max(value = 50)
 	private int capacity;
+	
 	@NotNull
 	@Min(value = 1970)
 	private int year;
+	
 	@NotNull
 	@Size(max = 300)
 	private String brand;
+	
 	@NotNull
 	@Size(max = 300)
 	private String plate;
+	
 	@NotNull
 	@Size(max = 300)
 	private String conservationState;
+	
 	@NotNull
 	@Size(max = 300)
 	private String fuel;
+	
 	@NotNull
 	@Size(max = 300)
 	private String color;

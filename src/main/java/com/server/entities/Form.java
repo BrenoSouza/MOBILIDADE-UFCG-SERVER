@@ -3,10 +3,13 @@ package com.server.entities;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,15 +20,19 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "form")
+@Table(name = "tb_form")
 public class Form implements Serializable{
 
 	@Transient
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.SEQUENCE)
+	@Column(name = "id_form")
 	private Long id;
+	
+	@OneToOne(mappedBy="form")
+	private Travel travel;
 	
 	//dados da viagem
 	@NotNull
@@ -35,9 +42,11 @@ public class Form implements Serializable{
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date requestDate;
+	
 	@NotNull
 	@Size(max = 300)
 	private String destination;
+	
 	@NotNull
 	@Size(max = 300)
 	private String purpose;
@@ -46,6 +55,7 @@ public class Form implements Serializable{
 	@NotNull
 	@Size(max = 300)
 	private String name;
+	
 	@NotNull
 	private String phone;
 	
@@ -54,17 +64,21 @@ public class Form implements Serializable{
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date travelDate;
+	
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date departureHour;
+	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date returnDate;
+	
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date returnHour;
+	
 	@NotNull
 	@Size(max = 300)
 	private String departurePoint;
@@ -75,10 +89,13 @@ public class Form implements Serializable{
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date arrivalTime;
+	
 	@Size(max = 10)
 	private String flightNumber;
+	
 	@Size(max = 300)
 	private String airCompany;
+	
 	@Size(max = 300)
 	private String travelOrigin;
 	
