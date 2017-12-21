@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.server.entities.Form;
+import com.server.entities.enums.FormStatus;
 import com.server.repositories.FormRepository;
 import com.server.services.FormService;
 
@@ -28,6 +29,7 @@ public class FormServiceImpl implements FormService {
 
 	@Override
 	public Form save(Form formulario) {
+		formulario.setStatus(FormStatus.WAITING);
 		return formRepository.save(formulario);
 	}
 
@@ -97,8 +99,8 @@ public class FormServiceImpl implements FormService {
 	}
 
 	@Override
-	public List<Form> searchBystatus(String status) {
-		return formRepository.findAllBystatusIgnoreCaseContaining(status);
+	public List<Form> searchBystatus(FormStatus status) {
+		return formRepository.findAllByStatus(status);
 	}
 
 	@Override

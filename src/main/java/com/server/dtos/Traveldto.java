@@ -5,6 +5,8 @@ public class Traveldto {
 	private Long formId;
 	
 	private Long vehicle;
+	
+	private Long driver;
 
 	public Traveldto() {}
 	
@@ -22,6 +24,14 @@ public class Traveldto {
 
 	public void setVehicle(Long vehicle) {
 		this.vehicle = vehicle;
+	}
+
+	public Long getDriver() {
+		return driver;
+	}
+
+	public void setDriver(Long driver) {
+		this.driver = driver;
 	}
 	
 	

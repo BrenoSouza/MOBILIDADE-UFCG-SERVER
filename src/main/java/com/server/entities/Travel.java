@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,9 +16,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.server.entities.enums.TravelStatus;
 
 
 
@@ -43,21 +47,22 @@ public class Travel implements Serializable{
 	@JoinColumn(name="id_driver")
 	private Driver driver;	
 	
-	static private Long  Nrequest = (long) 0;
+	static private Long  Nrequest = (long) -1;
 	
 	@Column(name = "request_id")
 	private Long  request;
 	
 	@NotNull
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date travelDate;
 	
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date returnDate;
 	
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private TravelStatus status;
 	
 	public Travel() {
 		Nrequest++;
@@ -122,12 +127,39 @@ public class Travel implements Serializable{
 		this.returnDate = returnDate;
 	}
 
-	public String getStatus() {
+	public TravelStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(TravelStatus status) {
 		this.status = status;
+	}
+
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Travel other = (Travel) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 	@Override

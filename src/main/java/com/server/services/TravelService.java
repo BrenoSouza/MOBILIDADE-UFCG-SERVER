@@ -6,10 +6,11 @@ import java.util.List;
 import org.springframework.validation.BindingResult;
 
 import com.server.entities.Travel;
+import com.server.entities.enums.TravelStatus;
 
 public interface TravelService {
 
-	Travel addTravel(Long idForm,Long idVehicle,BindingResult result);
+	Travel addTravelVehicle(Long idForm,Long idVehicle,Long id_Driver,BindingResult result);
 	
 	List<Travel> getAllTravel();
 	
@@ -17,7 +18,9 @@ public interface TravelService {
 	
 	void deleteTravel(Long id);
 	
-	Travel setStatus(Long id, String Status);
+	Travel setStatus(Long id, TravelStatus Status);
 	
 	Boolean checkVehicleAvailable(Long id,Date after,Date before);
+	
+	Boolean checkDriverAvailable(Long id,Date after,Date before);
 }

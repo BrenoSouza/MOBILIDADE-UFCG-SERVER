@@ -5,10 +5,11 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -18,6 +19,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.server.entities.enums.FormStatus;
 
 @Entity
 @Table(name = "tb_form")
@@ -39,8 +42,8 @@ public class Form implements Serializable{
 	@Size(max = 300)
 	private String requesterSector;
 
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date requestDate;
 	
 	@NotNull
@@ -61,22 +64,22 @@ public class Form implements Serializable{
 	
 	//datas e horas da viagem
 	@NotNull
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date travelDate;
 	
 	@NotNull
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date departureHour;
 	
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date returnDate;
 	
 	@NotNull
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date returnHour;
 	
 	@NotNull
@@ -86,8 +89,8 @@ public class Form implements Serializable{
 	private String address;
 	
 	//passageiros no aeroporto
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date arrivalTime;
 	
 	@Size(max = 10)
@@ -107,12 +110,13 @@ public class Form implements Serializable{
 	@Size(max = 300)
 	private String requestJustification;
 	
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private FormStatus status;
 	
 	public Form(String requesterSector, Date requestDate, String destination, String purpose, String name, String phone,
 			Date travelDate, Date departureHour, Date returnDate, Date returnHour, String departurePoint,
 			String address, Date arrivalTime, String flightNumber, String airCompany, String travelOrigin,
-			String driverSectorResponsibility, String requestJustification, String status) {
+			String driverSectorResponsibility, String requestJustification, FormStatus status) {
 		super();
 		this.requesterSector = requesterSector;
 		this.requestDate = requestDate;
@@ -292,11 +296,11 @@ public class Form implements Serializable{
 		this.requestJustification = requestJustification;
 	}
 
-	public String getStatus() {
+	public FormStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(FormStatus status) {
 		this.status = status;
 	}
 

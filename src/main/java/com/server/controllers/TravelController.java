@@ -1,6 +1,6 @@
 package com.server.controllers;
 
-import java.util.Calendar;
+
 import java.util.Date;
 
 import javax.validation.Valid;
@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.server.dtos.Traveldto;
 import com.server.entities.Travel;
-import com.server.entities.Vehicle;
-import com.server.repositories.TravelRepository;
 import com.server.response.Response;
 import com.server.services.TravelService;
 
@@ -40,7 +38,7 @@ public class TravelController {
 	public ResponseEntity<Response<Travel>> addTravel(@Valid @RequestBody Traveldto travel , BindingResult result){
 		Response<Travel> response = new Response<Travel>();
 		
-		response.setData(this.travelSerive.addTravel(travel.getFormId(),travel.getVehicle(), result));
+		response.setData(this.travelSerive.addTravelVehicle(travel.getFormId(),travel.getVehicle(),travel.getDriver(), result));
 		if(result.hasErrors()) {
 			result.getAllErrors().forEach(error -> response.addErrorMessage(error.getDefaultMessage()));
 			
@@ -53,23 +51,23 @@ public class TravelController {
 	
 	@GetMapping("/check_vehicle")
 	public Response<Boolean> checkVehicleAvailable(
-			@RequestParam(value = "id",      required = false) Long id,
-			@RequestParam(value = "after",      required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date after,
-			@RequestParam(value = "before",      required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date before){
+			@RequestParam(value = "vehcile_id",      required = false) Long vehicleId,
+			@RequestParam(value = "after",      required = false) @DateTimeFormat(pattern="dd-MM-yyyy HH:mm:ss") Date after,
+			@RequestParam(value = "before",      required = false) @DateTimeFormat(pattern="dd-MM-yyyy HH:mm:ss") Date before){
 		Response<Boolean> response = new Response<Boolean>();
 		
-		/*Calendar cal = Calendar.getInstance();
-		cal.setTime(after);
-		cal.add(Calendar.DATE, -1);
-		Date after2 = cal.getTime();
-		cal.setTime(before);
-		cal.add(Calendar.DATE, +1);
-		Date before2 = cal.getTime();
+		response.setData(this.travelSerive.checkVehicleAvailable(vehicleId, after, before));
+		return response;
+	}
+	
+	@GetMapping("/check_driver")
+	public Response<Boolean> checkDriverAvailable(
+			@RequestParam(value = "driver_id",      required = false) Long driverId,
+			@RequestParam(value = "after",      required = false) @DateTimeFormat(pattern="dd-MM-yyyy HH:mm:ss") Date after,
+			@RequestParam(value = "before",      required = false) @DateTimeFormat(pattern="dd-MM-yyyy HH:mm:ss") Date before){
+		Response<Boolean> response = new Response<Boolean>();
 		
-		System.out.println("data after: "+ after2);
-		System.out.println("data before: "+ before2);*/
-		
-		response.setData(this.travelSerive.checkVehicleAvailable(id, after, before));
+		response.setData(this.travelSerive.checkDriverAvailable(driverId, after, before));
 		return response;
 	}
 	

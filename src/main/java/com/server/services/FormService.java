@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.server.entities.Form;
+import com.server.entities.enums.FormStatus;
 
 public interface FormService {
 	
@@ -39,7 +40,7 @@ public interface FormService {
 	
 	List<Form> searchByrequestJustification(String requestJustification);
 	
-	List<Form> searchBystatus(String status);
+	List<Form> searchBystatus(FormStatus status);
 	
 	
 	

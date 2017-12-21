@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.server.entities.Form;
+import com.server.entities.enums.FormStatus;
 
 public interface FormRepository extends JpaRepository<Form, Long>{
 	
@@ -37,7 +38,7 @@ public interface FormRepository extends JpaRepository<Form, Long>{
 	
 	List<Form> findAllByrequestJustificationIgnoreCaseContaining(String requestJustification);
 	
-	List<Form> findAllBystatusIgnoreCaseContaining(String status);
+	List<Form> findAllByStatus(FormStatus status);
 	
 	
 	

@@ -29,7 +29,7 @@ public class MobilidadeUfcgServerApplication {
 		return new ApiInfoBuilder().title("Mobilidade UFCG")
 				.description("")
 				.termsOfServiceUrl("http://www-03.ibm.com/software/sla/sladb.nsf/sla/bm?Open")
-				.contact("").license("Apache License Version 2.0")
+				.license("Apache License Version 2.0")
 				.licenseUrl("https://github.com/IBM-Bluemix/news-aggregator/blob/master/LICENSE").version("1.0")
 				.build();
 	}

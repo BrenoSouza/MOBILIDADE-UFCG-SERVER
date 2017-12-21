@@ -1,22 +1,17 @@
 package com.server.controllers;
 
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.Date;
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.server.entities.Form;
+import com.server.entities.enums.FormStatus;
 import com.server.services.FormService;
 import com.server.response.Response;
 
@@ -129,7 +125,7 @@ public class FormController {
 		@RequestParam(value = "travelOrigin", 	  required = false) String travelOrigin,
 		@RequestParam(value = "driverResponsible",required = false) String driverResponsible,
 		@RequestParam(value = "justification",    required = false) String justification,
-		@RequestParam(value = "status",           required = false) String status,
+		@RequestParam(value = "status",           required = false) FormStatus status,
 		@RequestParam(value = "requesterSector",  required = false) String requesterSector,
 		@RequestParam(value = "requestDate",      required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date requestDate,
 		@RequestParam(value = "travelDate",       required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date travelDate,
@@ -150,7 +146,7 @@ public class FormController {
 
 	private Response<Form> search(String name, String sector, String destination, String purpose, String phone,
 			String departurePoint, String address, String flightNumber, String airCompany, String travelOrigin,
-			String driverResponsible, String justification, String status, Date requestDate, Date travelDate,
+			String driverResponsible, String justification, FormStatus status, Date requestDate, Date travelDate,
 			Date departureHour, Date returnDate, Date returnHour, Date arrivalTime,String requesterSector) {
 		Response<Form> response = new Response<Form>();
 		
@@ -200,13 +196,13 @@ public class FormController {
 			response.setData(this.formService.searchAllBytravelDate(travelDate));
 		}
 		if(departureHour != null) {
-			response.setData(this.formService.searchAllBydepartureHour(departureHour));
+			//response.setData(this.formService.searchAllBydepartureHour(departureHour));
 		}
 		if(returnDate != null) {
 			response.setData(this.formService.searchAllByreturnDate(returnDate));
 		}
 		if(returnHour != null) {
-			response.setData(this.formService.searchAllByreturnHour(returnHour));
+			//response.setData(this.formService.searchAllByreturnHour(returnHour));
 		}
 		if(arrivalTime != null) {
 			response.setData(this.formService.searchAllByarrivalTime(arrivalTime));
