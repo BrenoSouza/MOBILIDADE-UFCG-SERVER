@@ -20,6 +20,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.server.entities.enums.FormStatus;
 
 @Entity
@@ -44,6 +45,7 @@ public class Form implements Serializable{
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date requestDate;
 	
 	@NotNull
@@ -66,20 +68,24 @@ public class Form implements Serializable{
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date travelDate;
 	
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date departureHour;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date returnDate;
 	
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date returnHour;
 	
 	@NotNull
@@ -91,6 +97,7 @@ public class Form implements Serializable{
 	//passageiros no aeroporto
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date arrivalTime;
 	
 	@Size(max = 10)

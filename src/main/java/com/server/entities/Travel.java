@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.server.entities.enums.TravelStatus;
 
 
@@ -55,10 +56,12 @@ public class Travel implements Serializable{
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date travelDate;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date returnDate;
 	
 	@Enumerated(EnumType.STRING)
