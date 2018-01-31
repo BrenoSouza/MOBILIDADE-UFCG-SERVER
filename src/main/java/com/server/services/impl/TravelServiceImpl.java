@@ -7,8 +7,6 @@ import java.util.List;
 import org.joda.time.Interval;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 
 import com.server.entities.Driver;
 import com.server.entities.Form;
@@ -20,6 +18,7 @@ import com.server.repositories.DriverRepository;
 import com.server.repositories.FormRepository;
 import com.server.repositories.TravelRepository;
 import com.server.repositories.VehicleRepository;
+import com.server.response.Response;
 import com.server.services.TravelService;
 
 @Service
@@ -37,56 +36,31 @@ public class TravelServiceImpl implements TravelService{
 	@Autowired
 	private TravelRepository travelRepository;
 	
-	private List<Travel> list =  new ArrayList<Travel>();
+	private List<Travel> listTravelBusy;
+	
+	private static final Long MARGIN = 1000l;
 	
 	
 	@Override
-	public Travel addTravelVehicle(Long idForm,Long idVehicle,Long idDriver,BindingResult result) {
+	public Response<List<Travel>> addTravelVehicle(Long idForm,Long idVehicle,Long idDriver) {
+		Response<List<Travel>> response =  new Response<List<Travel>>();
+		
 		Form form = this.formRepository.findOne(idForm);
 		Vehicle vehicle = this.vehicleRepository.findOne(idVehicle);
 		Driver driver = this.driverRepository.findOne(idDriver);
 		
-		if(form == null) {
-			result.addError(new ObjectError("Formulário", "Formulário não encontrado"));
-			return null;
+		response = this.checkVehicleAvailable(idVehicle, idForm);
+				
+		if(! response.getErrors().isEmpty()) {
+			return response;
 		}
 		
-		if(form.getTravelDate().after(form.getReturnDate())) {
-			result.addError(new ObjectError("Data", "Data de volta anterior a data de ida"));
-			return null;
-		}
+		response = this.checkDriverAvailable(idDriver, idForm);
 		
-		if(form.getTravelDate().equals(form.getReturnDate())) {
-			result.addError(new ObjectError("Data", "Data de ida e volta são as mesmas"));
-			return null;
-		}
+		if(! response.getErrors().isEmpty()) {
+			return response;
+		}	
 		
-		if(vehicle == null) {
-			result.addError(new ObjectError("Veiculo", "Veículo não encontrado"));
-			return null;
-		}
-		
-		if(driver == null) {
-			result.addError(new ObjectError("Motorista", "Motorista não encontrado"));
-			return null;
-		}
-		
-		if(! checkVehicleAvailable(idVehicle, form.getTravelDate(), form.getReturnDate())) {
-			result.addError(new ObjectError("Veiculo", "Veículo não disponível na data requisitada"));
-			form.setStatus(FormStatus.DENIED);
-			return null;
-		}
-		
-		if(! checkDriverAvailable(idDriver, form.getTravelDate(), form.getReturnDate())) {
-			result.addError(new ObjectError("Motorista", "Motorista não disponível na data requisitada"));
-			form.setStatus(FormStatus.DENIED);
-			return null;
-		}
-			
-		
-		if(result.hasErrors()) {
-			return null;
-		}
 		
 		Travel travel = new Travel();
 		travel.setForm(form);
@@ -98,12 +72,27 @@ public class TravelServiceImpl implements TravelService{
 		
 		form.setStatus(FormStatus.COMPLETED);
 		this.formRepository.save(form);
-		return travel;
+
+		return response;
 	}
 
 	@Override
 	public List<Travel> getAllTravel() {
-		return this.travelRepository.findAll();
+		List<Travel> listTravel = new ArrayList<Travel>(this.travelRepository.findAllByStatus(TravelStatus.HAPPENING));
+		
+		listTravel.addAll(this.travelRepository.findAllByStatus(TravelStatus.PLANNED));
+		
+		Date today = new Date();
+		
+		for (int i = 0; i < listTravel.size(); i++) {
+			if((today.before(listTravel.get(i).getReturnDate())) && (today.after(listTravel.get(i).getTravelDate()))) {
+				this.travelRepository.save(listTravel.get(i));
+			}else {
+				listTravel.get(i).setStatus(TravelStatus.COMPLETED);
+			}
+			this.travelRepository.save(listTravel.get(i));
+		}		
+		return listTravel;
 	}
 
 	@Override
@@ -125,18 +114,43 @@ public class TravelServiceImpl implements TravelService{
 	}
 
 	@Override
-	public Boolean checkVehicleAvailable(Long id, Date after, Date before) {
+	public Response<List<Travel>> checkVehicleAvailable(Long idVehicle,Long idForm) {
+		
+		Response<List<Travel>> response =  new Response<List<Travel>>();
+		
+		listTravelBusy = new ArrayList<Travel>();
+		
+		Vehicle vehicle = this.vehicleRepository.findOne(idVehicle);
+		
+		if(vehicle == null) {
+			response.addErrorMessage("Veiculo - Veículo não encontrado, tente novamente");
+			return response;
+		}
+		
+		
+		Form form = this.formRepository.findByid(idForm);
+		
+		if(form == null) {
+			response.addErrorMessage("Formulário - Formulário não encontrado, tente novamente");
+			return response;
+		}		
+		
+		Date after = form.getTravelDate();
+		Date before = form.getReturnDate();
+		
 		
 		if(after.equals(before)) {
-			return false;
+			response.addErrorMessage("Data - Datas de ida e volta iguais, tente novamente");
+			return response;
 		}
 		
 		if(after.after(before)){
-			return false;
+			response.addErrorMessage("Data - Datas de ida é anterior a data de volta, tente novamente");
+			return response;
 		}
 		
 		
-		Vehicle vehicle = this.vehicleRepository.findOne(id);
+		
 		
 		List<Travel> listTravel = new ArrayList<Travel>(this.travelRepository.findAllByStatusAndVehicle(TravelStatus.HAPPENING,vehicle));
 		
@@ -147,11 +161,12 @@ public class TravelServiceImpl implements TravelService{
 		List<Interval> listInterval = new ArrayList<Interval>();
 		
 		for (int i = 0; i < listTravel.size(); i++) {
+			
             Date start=listTravel.get(i).getTravelDate();
-            Date end= new Date(listTravel.get(i).getReturnDate().getTime() + 1000l);
+            Date end= new Date(listTravel.get(i).getReturnDate().getTime() + MARGIN);
+            
             if((interval.contains(start.getTime())) || (interval.contains(end.getTime()))) {
-            	list.add(listTravel.get(i));
-            	return false;
+            	listTravelBusy.add(listTravel.get(i));
             }            
             listInterval.add(new Interval(start.getTime(),end.getTime()));
 		}
@@ -160,26 +175,58 @@ public class TravelServiceImpl implements TravelService{
 		 
 		for (int i = 0; i < listInterval.size(); i++) {
 			if(listInterval.get(i).contains(after.getTime()) || listInterval.get(i).contains(before.getTime())) {
-				return false;
+				if(! listTravelBusy.contains(listTravel.get(i))) {
+					listTravelBusy.add(listTravel.get(i));
+				}
 			}
 		}
-				
-		return true;
+		
+		if(! listTravelBusy.isEmpty()) {
+			response.setData(listTravelBusy);
+			response.addErrorMessage("Veículo ja ocupado");
+			form.setStatus(FormStatus.DENIED);
+			this.formRepository.save(form);
+		}
+		
+		return response;
 		
 	}
 	
 	@Override
-	public Boolean checkDriverAvailable(Long id, Date after, Date before) {
+	public Response<List<Travel>> checkDriverAvailable(Long idDriver, Long idForm) {
+		
+		Response<List<Travel>> response =  new Response<List<Travel>>();
+		
+		listTravelBusy = new ArrayList<Travel>();
+		
+		Driver driver = this.driverRepository.findOne(idDriver);
+		
+		if(driver == null) {
+			response.addErrorMessage("Motorista não encontrado, tente novamente");
+			return response;
+		}
+		
+		Form form = this.formRepository.findByid(idForm);
+		
+		if(form == null) {
+			response.addErrorMessage("Formulário não encontrado, tente novamente");
+		}
+		
+		Date after = form.getTravelDate();
+		Date before = form.getReturnDate();
+		
 		
 		if(after.equals(before)) {
-			return false;
+			response.addErrorMessage("Data - Datas de ida e volta iguais, tente novamente");
+			return response;
 		}
 		
 		if(after.after(before)){
-			return false;
+			response.addErrorMessage("Data - Datas de ida é anterior a data de volta, tente novamente");
+			return response;
 		}
 		
-		Driver driver = this.driverRepository.findOne(id);
+		
 		
 		List<Travel> listTravel = new ArrayList<Travel>(this.travelRepository.findAllByStatusAndDriver(TravelStatus.HAPPENING,driver));
 		
@@ -191,9 +238,9 @@ public class TravelServiceImpl implements TravelService{
 		
 		for (int i = 0; i < listTravel.size(); i++) {
             Date start=listTravel.get(i).getTravelDate();
-            Date end= new Date(listTravel.get(i).getReturnDate().getTime() + 1000l);
+            Date end= new Date(listTravel.get(i).getReturnDate().getTime() + MARGIN);
             if((interval.contains(start.getTime())) || (interval.contains(end.getTime()))) {
-            	return false;
+            	listTravelBusy.add(listTravel.get(i));
             }            
             listInterval.add(new Interval(start.getTime(),end.getTime()));
 		}
@@ -202,11 +249,34 @@ public class TravelServiceImpl implements TravelService{
 		 
 		for (int i = 0; i < listInterval.size(); i++) {
 			if(listInterval.get(i).contains(after.getTime()) || listInterval.get(i).contains(before.getTime())) {
-				return false;
+				if(! listTravelBusy.contains(listTravel.get(i))) {
+					listTravelBusy.add(listTravel.get(i));
+				}
+				
 			}
 		}
+		
+		if(! listTravelBusy.isEmpty()) {
+			response.addErrorMessage("Motorista ocupado");
+			response.setData(listTravelBusy);
+			form.setStatus(FormStatus.DENIED);
+			this.formRepository.save(form);
+		}
 				
-		return true;
+		return response;
 	}
 
+	@Override
+	public Boolean checkVehicleIsAvailable(Long id, Date after, Date before) {
+		//checkVehicleAvailable(id, after,before);
+		return listTravelBusy.isEmpty();
+	}
+
+	@Override
+	public Boolean checkDriverIsAvailable(Long id, Date after, Date before) {
+		//checkDriverAvailable(id, after, before);
+		return listTravelBusy.isEmpty();
+	}
+
+	
 }

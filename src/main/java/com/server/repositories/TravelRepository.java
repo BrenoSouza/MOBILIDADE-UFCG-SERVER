@@ -20,6 +20,8 @@ public interface TravelRepository extends JpaRepository<Travel, Long> {
 	
 	List<Travel> findAllByStatusAndDriver(TravelStatus status,Driver driver);
 	
+	List<Travel> findAllByStatus(TravelStatus status);
+	
 	//List<Travel> findAllByVehicle(Vehicle vehicle);
 	
 	//List<Travel> findAllByVehicleAndTravelDateAfterAndReturnDateBefore(Vehicle vehicle,Date after,Date before);	
