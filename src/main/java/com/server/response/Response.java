@@ -15,7 +15,10 @@ public class Response<T> {
 	public Response() {
 	}
 
-	public List<String> getErrors() {		
+	public List<String> getErrors() {	
+		if(errors == null) {
+			this.errors = new ArrayList<String>();
+		}
 		return errors;
 	}
 
@@ -49,4 +52,12 @@ public class Response<T> {
 				
 	}
 
+	public void setData(Set<T> data) {
+		this.data = data;
+	}
+
+	public void setErrors(List<String> errors) {
+		this.errors = errors;
+	}
+	
 }

@@ -1,5 +1,7 @@
 package com.server.services.impl;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -49,6 +51,11 @@ public class TravelServiceImpl implements TravelService{
 		Vehicle vehicle = this.vehicleRepository.findOne(idVehicle);
 		Driver driver = this.driverRepository.findOne(idDriver);
 		
+		if(form.getStatus() == FormStatus.COMPLETED) {
+			response.addErrorMessage("Formulário já com viagem já cadastrada");
+			return response;
+		}
+		
 		response = this.checkVehicleAvailable(idVehicle, idForm);
 				
 		if(! response.getErrors().isEmpty()) {
@@ -65,6 +72,7 @@ public class TravelServiceImpl implements TravelService{
 		Travel travel = new Travel();
 		travel.setForm(form);
 		travel.setVehicle(vehicle);
+		travel.setDriver(driver);
 		travel.setTravelDate(form.getTravelDate());
 		travel.setReturnDate(form.getReturnDate());
 		travel.setStatus(TravelStatus.PLANNED);
@@ -267,16 +275,15 @@ public class TravelServiceImpl implements TravelService{
 	}
 
 	@Override
-	public Boolean checkVehicleIsAvailable(Long id, Date after, Date before) {
-		//checkVehicleAvailable(id, after,before);
-		return listTravelBusy.isEmpty();
+	public Response<List<Travel>> getAllTravelVehicle(Long vehicleId, Date date) {
+		date.setHours(0);
+		date.setMinutes(0);
+		date.setSeconds(0);
+		Vehicle vehicle= this.vehicleRepository.getOne(vehicleId);
+		Response<List<Travel>> response =  new Response<List<Travel>>();
+		List<Travel> list = this.travelRepository.findAllByVehicleAndTravelDateAfter(vehicle, date);
+		response.setData(list);
+		return response; 
 	}
-
-	@Override
-	public Boolean checkDriverIsAvailable(Long id, Date after, Date before) {
-		//checkDriverAvailable(id, after, before);
-		return listTravelBusy.isEmpty();
-	}
-
 	
 }

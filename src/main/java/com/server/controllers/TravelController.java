@@ -63,7 +63,7 @@ public class TravelController {
 	
 	@GetMapping("/check_driver")
 	public ResponseEntity<Response<List<Travel>>> checkDriverAvailable(
-			@RequestParam(value = "driver_id",      required = true) Long driverId,
+			@RequestParam(value = "driver_id",    required = true) Long driverId,
 			@RequestParam(value = "form_id",      required = true) Long formId){
 		
 		Response<List<Travel>> response = this.travelSerive.checkDriverAvailable(driverId,formId);
@@ -97,5 +97,14 @@ public class TravelController {
 		
 		this.travelSerive.deleteTravel(id);		
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	}
+	
+	@GetMapping("/vehicleTravel")
+	public ResponseEntity<Response<List<Travel>>> getAllTravelVehicleInDate(
+			@RequestParam(value="vehicleId", required= true) Long vehicleId,
+			@RequestParam(value="dateTravel", required= true) @DateTimeFormat(pattern="dd-MM-yyyy HH:mm:ss") Date date ){
+		Response<List<Travel>> response = this.travelSerive.getAllTravelVehicle(vehicleId, date);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 }
