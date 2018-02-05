@@ -44,7 +44,7 @@ public class DriverController {
 		
 		// Save vehicle in the database.
 		this.driverService.save(driver);
-		response.setData(driver);
+		response.addData(driver);
 		
 	
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -71,7 +71,7 @@ public class DriverController {
 		
 		Driver driver = this.driverService.findById(id);
 		
-		response.setData(driver);
+		response.addData(driver);
 		
 		return ResponseEntity.ok(response);
 	}

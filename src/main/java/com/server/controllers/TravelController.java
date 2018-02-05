@@ -33,12 +33,12 @@ import com.server.services.TravelService;
 public class TravelController {
 	
 	@Autowired
-	private TravelService travelSerive;
+	private TravelService travelService;
 
 
 	@PostMapping
-	public ResponseEntity<Response<List<Travel>>> addTravel( @RequestBody Traveldto travel){
-		Response<List<Travel>> response = this.travelSerive.addTravelVehicle(travel.getFormId(),travel.getVehicle(),travel.getDriver());
+	public ResponseEntity<Response<Travel>> addTravel( @RequestBody Traveldto travel){
+		Response<Travel> response = this.travelService.addTravelVehicle(travel.getFormId(),travel.getVehicle(),travel.getDriver());
 		
 		if(response.getErrors().isEmpty()) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -48,11 +48,11 @@ public class TravelController {
 	}
 	
 	@GetMapping("/check_vehicle")
-	public ResponseEntity<Response<List<Travel>>> checkVehicleAvailable(
+	public ResponseEntity<Response<Travel>> checkVehicleAvailable(
 			@RequestParam(value = "vehcile_id",required = true) Long vehicleId,
 			@RequestParam(value = "form_id",required = true) Long formId){
 		
-		Response<List<Travel>> response = this.travelSerive.checkVehicleAvailable(vehicleId,formId);
+		Response<Travel> response = this.travelService.checkVehicleAvailable(vehicleId,formId);
 		
 		if(response.getErrors().isEmpty()) {
 			return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -62,11 +62,11 @@ public class TravelController {
 	}
 	
 	@GetMapping("/check_driver")
-	public ResponseEntity<Response<List<Travel>>> checkDriverAvailable(
+	public ResponseEntity<Response<Travel>> checkDriverAvailable(
 			@RequestParam(value = "driver_id",    required = true) Long driverId,
 			@RequestParam(value = "form_id",      required = true) Long formId){
 		
-		Response<List<Travel>> response = this.travelSerive.checkDriverAvailable(driverId,formId);
+		Response<Travel> response = this.travelService.checkDriverAvailable(driverId,formId);
 		
 		if(response.getErrors().isEmpty()) {
 			return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -78,7 +78,7 @@ public class TravelController {
 	public ResponseEntity<Response<Travel>> getAllTravel(){
 		Response<Travel> response = new Response<Travel>();
 		
-		response.setData(travelSerive.getAllTravel());
+		response.setData(travelService.getAllTravel());
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
@@ -87,7 +87,7 @@ public class TravelController {
 	public ResponseEntity<Response<Travel>> getTravel(@PathVariable Long id){
 		Response<Travel> response = new Response<Travel>();
 		
-		response.setData(this.travelSerive.getTravel(id));		
+		response.addData(this.travelService.getTravel(id));		
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
@@ -95,16 +95,9 @@ public class TravelController {
 	public ResponseEntity<Response<Travel>> deleteTravel(@PathVariable Long id){
 		Response<Travel> response = new Response<Travel>();
 		
-		this.travelSerive.deleteTravel(id);		
+		this.travelService.deleteTravel(id);		
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
-	@GetMapping("/vehicleTravel")
-	public ResponseEntity<Response<List<Travel>>> getAllTravelVehicleInDate(
-			@RequestParam(value="vehicleId", required= true) Long vehicleId,
-			@RequestParam(value="dateTravel", required= true) @DateTimeFormat(pattern="dd-MM-yyyy HH:mm:ss") Date date ){
-		Response<List<Travel>> response = this.travelSerive.getAllTravelVehicle(vehicleId, date);
-		
-		return ResponseEntity.status(HttpStatus.OK).body(response);
-	}
+	
 }

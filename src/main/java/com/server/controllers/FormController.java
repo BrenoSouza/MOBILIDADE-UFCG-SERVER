@@ -45,7 +45,7 @@ public class FormController {
 		// Save form in the database.
 		this.formService.save(form);
 		
-		response.setData(form);
+		response.addData(form);
 		
 		return ResponseEntity.ok(response);
 
@@ -73,7 +73,7 @@ public class FormController {
 		Form form = formService.findByid(id);
 		
 		// Add form to the object response.
-		response.setData(form);
+		response.addData(form);
 		
 		return ResponseEntity.ok(response);
 	}

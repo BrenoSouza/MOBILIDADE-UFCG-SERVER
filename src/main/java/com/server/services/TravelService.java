@@ -9,7 +9,7 @@ import com.server.response.Response;
 
 public interface TravelService {
 
-	Response<List<Travel>> addTravelVehicle(Long idForm,Long idVehicle,Long id_Driver);
+	Response<Travel> addTravelVehicle(Long idForm,Long idVehicle,Long id_Driver);
 	
 	List<Travel> getAllTravel();
 	
@@ -19,9 +19,9 @@ public interface TravelService {
 	
 	Travel setStatus(Long id, TravelStatus Status);
 	
-	Response<List<Travel>> checkVehicleAvailable(Long vehicleId,Long formId);
+	Response<Travel> checkVehicleAvailable(Long vehicleId,Long formId);
 
-	Response<List<Travel>> checkDriverAvailable(Long id,Long formId);
+	Response<Travel> checkDriverAvailable(Long id,Long formId);
 	
-	Response<List<Travel>> getAllTravelVehicle(Long vehicleId,Date date);
+	
 }

@@ -10,6 +10,7 @@ import org.joda.time.Interval;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.server.entities.Driver;
 import com.server.entities.Form;
 import com.server.entities.Travel;
@@ -44,8 +45,8 @@ public class TravelServiceImpl implements TravelService{
 	
 	
 	@Override
-	public Response<List<Travel>> addTravelVehicle(Long idForm,Long idVehicle,Long idDriver) {
-		Response<List<Travel>> response =  new Response<List<Travel>>();
+	public Response<Travel> addTravelVehicle(Long idForm,Long idVehicle,Long idDriver) {
+		Response<Travel> response =  new Response<Travel>();
 		
 		Form form = this.formRepository.findOne(idForm);
 		Vehicle vehicle = this.vehicleRepository.findOne(idVehicle);
@@ -122,9 +123,9 @@ public class TravelServiceImpl implements TravelService{
 	}
 
 	@Override
-	public Response<List<Travel>> checkVehicleAvailable(Long idVehicle,Long idForm) {
+	public Response<Travel> checkVehicleAvailable(Long idVehicle,Long idForm) {
 		
-		Response<List<Travel>> response =  new Response<List<Travel>>();
+		Response<Travel> response =  new Response<Travel>();
 		
 		listTravelBusy = new ArrayList<Travel>();
 		
@@ -144,6 +145,7 @@ public class TravelServiceImpl implements TravelService{
 		}		
 		
 		Date after = form.getTravelDate();
+		//Date after = this.formRepository.findtravelDatebyId(idForm);
 		Date before = form.getReturnDate();
 		
 		
@@ -201,9 +203,9 @@ public class TravelServiceImpl implements TravelService{
 	}
 	
 	@Override
-	public Response<List<Travel>> checkDriverAvailable(Long idDriver, Long idForm) {
+	public Response<Travel> checkDriverAvailable(Long idDriver, Long idForm) {
 		
-		Response<List<Travel>> response =  new Response<List<Travel>>();
+		Response<Travel> response =  new Response<Travel>();
 		
 		listTravelBusy = new ArrayList<Travel>();
 		
@@ -274,16 +276,5 @@ public class TravelServiceImpl implements TravelService{
 		return response;
 	}
 
-	@Override
-	public Response<List<Travel>> getAllTravelVehicle(Long vehicleId, Date date) {
-		date.setHours(0);
-		date.setMinutes(0);
-		date.setSeconds(0);
-		Vehicle vehicle= this.vehicleRepository.getOne(vehicleId);
-		Response<List<Travel>> response =  new Response<List<Travel>>();
-		List<Travel> list = this.travelRepository.findAllByVehicleAndTravelDateAfter(vehicle, date);
-		response.setData(list);
-		return response; 
-	}
 	
 }

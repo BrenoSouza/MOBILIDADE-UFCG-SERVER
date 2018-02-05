@@ -1,8 +1,11 @@
 package com.server.services;
 
+import java.util.Date;
 import java.util.List;
 
+import com.server.entities.Travel;
 import com.server.entities.Vehicle;
+import com.server.response.Response;
 
 public interface VehicleService {
 
@@ -31,6 +34,10 @@ public interface VehicleService {
 	 * @param id
 	 */
 	void delete(Long id);
+	
+	Response<Travel> getAllTravelOfVehicleInDay(Long vehicleId,Date travelDate);
+	
+	Response<Vehicle> getAllVehicleAvailableInInterval(Long formId);
 	
 	
 }

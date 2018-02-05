@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.server.entities.Form;
@@ -13,6 +14,9 @@ public interface FormRepository extends JpaRepository<Form, Long>{
 	
 	//busca por Id
 	Form findByid(Long Id);	
+	
+	@Query("SELECT f.travelDate FROM Form f where f.id = :id") 
+	Date findtravelDatebyId(Long id);
 	
 	List<Form> findAllByRequesterSectorIgnoreCaseContaining(String requesterSector);
 	

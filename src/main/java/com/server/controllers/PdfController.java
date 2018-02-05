@@ -50,7 +50,7 @@ public class PdfController {
 		Response<String> response =  new Response<String>();
 		
 		// Add form to the object response.
-		response.setData(text);
+		response.addData(text);
 		
 		return ResponseEntity.ok(response);
 	}

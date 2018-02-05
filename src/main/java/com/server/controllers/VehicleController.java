@@ -1,8 +1,11 @@
 package com.server.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,10 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.server.entities.Travel;
 import com.server.entities.Vehicle;
 import com.server.response.Response;
+import com.server.services.TravelService;
 import com.server.services.VehicleService;
 
 @RestController
@@ -25,6 +31,8 @@ public class VehicleController {
 
 	@Autowired
 	private VehicleService vehicleService;
+	
+
 	
 	@PostMapping
 	public ResponseEntity<Response<Vehicle>> registerVehicle(@RequestBody Vehicle vehicle){
@@ -60,7 +68,7 @@ public class VehicleController {
 		
 		Vehicle vehicle = this.vehicleService.findById(id);
 		
-		response.setData(vehicle);
+		response.addData(vehicle);
 		
 		return ResponseEntity.ok(response);
 	}
@@ -89,6 +97,25 @@ public class VehicleController {
 		
 		
 		return ResponseEntity.ok(response);
+	}
+	
+	@GetMapping("/vehicleTravel")
+	public ResponseEntity<Response<Travel>> getAllTravelVehicleInDate(
+			@RequestParam(value="vehicleId", required= true) Long vehicleId,
+			@RequestParam(value="dateTravel", required= true) @DateTimeFormat(pattern="dd-MM-yyyy HH:mm:ss") Date dateTravel){
+		Response<Travel> response = this.vehicleService.getAllTravelOfVehicleInDay(vehicleId, dateTravel);
+		
+		
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+	
+	@GetMapping("/vehicleAvailable")
+	public ResponseEntity<Response<Vehicle>> getAllVehicleAvailable(
+			@RequestParam(value="formId", required= true) Long formId){
+		Response<Vehicle> response = this.vehicleService.getAllVehicleAvailableInInterval(formId);
+		
+		
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
 }
