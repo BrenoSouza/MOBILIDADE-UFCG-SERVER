@@ -7,8 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.server.entities.Form;
 import com.server.entities.Travel;
 import com.server.entities.Vehicle;
+import com.server.repositories.FormRepository;
 import com.server.repositories.TravelRepository;
 import com.server.repositories.VehicleRepository;
 import com.server.response.Response;
@@ -83,6 +85,28 @@ public class VehicleServiceImpl implements VehicleService {
 		response.addList(vehicleAvailable);
 		
 		return response;
+	}
+
+	@Override
+	public Response<Vehicle> getAllVehicleUnavailableInDate(Date travelDate) {
+		
+		Date travelDate2 = new Date();
+		travelDate2.setTime(travelDate.getTime());
+		travelDate.setHours(0);
+		travelDate.setMinutes(0);
+		travelDate.setSeconds(0);
+		travelDate2.setHours(23);
+		travelDate2.setMinutes(59);
+		travelDate2.setSeconds(59);
+		
+		Response<Vehicle> response = new Response<Vehicle>();
+		
+		List<Travel> list = this.travelRepository.findAllByTravelDateBetween(travelDate, travelDate2);
+		
+		for (int i = 0; i < list.size(); i++) {
+			response.addData(list.get(i).getVehicle());
+		}
+		 return response;
 	}
 	
 	

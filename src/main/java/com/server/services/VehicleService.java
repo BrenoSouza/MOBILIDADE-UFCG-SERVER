@@ -39,5 +39,7 @@ public interface VehicleService {
 	
 	Response<Vehicle> getAllVehicleAvailableInInterval(Long formId);
 	
+	Response<Vehicle> getAllVehicleUnavailableInDate(Date travelDate);
+	
 	
 }

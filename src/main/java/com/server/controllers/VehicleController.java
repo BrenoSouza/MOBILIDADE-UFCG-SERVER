@@ -118,4 +118,13 @@ public class VehicleController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
+	@GetMapping("/vehicleUnavailable")
+	public ResponseEntity<Response<Vehicle>> getAllVehicleUnavailable(
+			@RequestParam(value="dateTravel", required= true) @DateTimeFormat(pattern="dd-MM-yyyy HH:mm:ss") Date dateTravel){
+		Response<Vehicle> response = this.vehicleService.getAllVehicleUnavailableInDate(dateTravel);
+		
+		
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+	
 }
