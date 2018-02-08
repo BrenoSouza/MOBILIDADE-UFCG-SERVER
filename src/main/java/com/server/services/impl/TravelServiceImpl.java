@@ -96,9 +96,10 @@ public class TravelServiceImpl implements TravelService{
 		for (int i = 0; i < listTravel.size(); i++) {
 			if((today.before(listTravel.get(i).getReturnDate())) && (today.after(listTravel.get(i).getTravelDate()))) {
 				listTravel.get(i).setStatus(TravelStatus.HAPPENING);
-				this.travelRepository.save(listTravel.get(i));
-			}else {
+			}else if(today.after(listTravel.get(i).getReturnDate())){
 				listTravel.get(i).setStatus(TravelStatus.COMPLETED);
+			}else {
+				listTravel.get(i).setStatus(TravelStatus.PLANNED);
 			}
 			this.travelRepository.save(listTravel.get(i));
 		}		
