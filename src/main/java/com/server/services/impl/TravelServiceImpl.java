@@ -57,7 +57,7 @@ public class TravelServiceImpl implements TravelService{
 			return response;
 		}
 		
-		response = this.checkVehicleAvailable(idVehicle, idForm);
+		response = this.checkVehicleAvailable(idVehicle, idForm, true);
 				
 		if(! response.getErrors().isEmpty()) {
 			return response;
@@ -125,7 +125,7 @@ public class TravelServiceImpl implements TravelService{
 	}
 
 	@Override
-	public Response<Travel> checkVehicleAvailable(Long idVehicle,Long idForm) {
+	public Response<Travel> checkVehicleAvailable(Long idVehicle,Long idForm,Boolean setupForm) {
 		
 		Response<Travel> response =  new Response<Travel>();
 		
@@ -193,7 +193,7 @@ public class TravelServiceImpl implements TravelService{
 			}
 		}
 		
-		if(! listTravelBusy.isEmpty()) {
+		if(! listTravelBusy.isEmpty() && setupForm) {
 			response.setData(listTravelBusy);
 			response.addErrorMessage("Veículo ja ocupado");
 			form.setStatus(FormStatus.DENIED);

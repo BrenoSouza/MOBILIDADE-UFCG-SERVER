@@ -52,7 +52,7 @@ public class TravelController {
 			@RequestParam(value = "vehcile_id",required = true) Long vehicleId,
 			@RequestParam(value = "form_id",required = true) Long formId){
 		
-		Response<Travel> response = this.travelService.checkVehicleAvailable(vehicleId,formId);
+		Response<Travel> response = this.travelService.checkVehicleAvailable(vehicleId,formId,false);
 		
 		if(response.getErrors().isEmpty()) {
 			return ResponseEntity.status(HttpStatus.OK).body(response);
