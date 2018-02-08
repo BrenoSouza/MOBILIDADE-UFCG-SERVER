@@ -71,7 +71,7 @@ public class TravelServiceImpl implements TravelService{
 		
 		
 		Travel travel = new Travel();
-		travel.getForm().add(form);
+		travel.setForm(form);
 		travel.setVehicle(vehicle);
 		travel.setDriver(driver);
 		travel.setTravelDate(form.getTravelDate());
