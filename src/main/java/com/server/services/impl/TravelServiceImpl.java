@@ -71,7 +71,7 @@ public class TravelServiceImpl implements TravelService{
 		
 		
 		Travel travel = new Travel();
-		travel.setForm(form);
+		travel.getForm().add(form);
 		travel.setVehicle(vehicle);
 		travel.setDriver(driver);
 		travel.setTravelDate(form.getTravelDate());
@@ -95,13 +95,14 @@ public class TravelServiceImpl implements TravelService{
 		
 		for (int i = 0; i < listTravel.size(); i++) {
 			if((today.before(listTravel.get(i).getReturnDate())) && (today.after(listTravel.get(i).getTravelDate()))) {
+				listTravel.get(i).setStatus(TravelStatus.HAPPENING);
 				this.travelRepository.save(listTravel.get(i));
 			}else {
 				listTravel.get(i).setStatus(TravelStatus.COMPLETED);
 			}
 			this.travelRepository.save(listTravel.get(i));
 		}		
-		return listTravel;
+		return this.travelRepository.findAll();
 	}
 
 	@Override
