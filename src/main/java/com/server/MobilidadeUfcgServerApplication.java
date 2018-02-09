@@ -1,5 +1,10 @@
 package com.server;
 
+import java.util.Date;
+import java.util.TimeZone;
+
+import javax.annotation.PostConstruct;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -33,4 +38,10 @@ public class MobilidadeUfcgServerApplication {
 				.licenseUrl("https://github.com/IBM-Bluemix/news-aggregator/blob/master/LICENSE").version("1.0")
 				.build();
 	}
+	
+	@PostConstruct
+    public void init(){
+        TimeZone.setDefault(TimeZone.getTimeZone("GMT-03:00"));   // It will set UTC timezone
+        System.out.println("Spring boot application running in UTC timezone :"+new Date());   // It will print UTC timezone
+    }
 }
