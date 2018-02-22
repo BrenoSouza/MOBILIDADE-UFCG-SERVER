@@ -1,16 +1,21 @@
 package com.server.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,19 +38,18 @@ public class Travel implements Serializable{
  
 	@Id
 	@GeneratedValue(strategy= GenerationType.SEQUENCE)
-	@Column(name = "id_travel")
+	@Column(name = "travel_id")
 	private Long id;
 	
-	@OneToOne
-	@JoinColumn(name="id_form")
-	private Form form;
+	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)//mappedBy = "travel"
+	private List<Form> form = new ArrayList<Form>();
 	
 	@OneToOne
-	@JoinColumn(name="id_vehicle")
+	@JoinColumn(name="vehicle_id")
 	private Vehicle vehicle;
 	
 	@OneToOne
-	@JoinColumn(name="id_driver")
+	@JoinColumn(name="driver_id")
 	private Driver driver;	
 	
 	static private Long  Nrequest = (long) -1;
@@ -80,11 +84,11 @@ public class Travel implements Serializable{
 		this.id = id;
 	}
 
-	public Form getForm() {
+	public List<Form> getForm() {
 		return form;
 	}
 
-	public void setForm(Form form) {
+	public void setForm(List<Form> form) {
 		this.form = form;
 	}
 
@@ -138,7 +142,23 @@ public class Travel implements Serializable{
 		this.status = status;
 	}
 
-	
+	public void addform(Form form) {
+        addForm(form, true);
+    }
+ 
+    void addForm(Form form, boolean set) {
+        if (form != null) {
+            getForm().add(form);
+            if (set) {
+                form.setTravel(this, false);
+            }
+        }
+    }
+     
+    public void removeForm(Form form) {
+        getForm().remove(form);
+        form.setTravel(null);
+    }    
 	
 	@Override
 	public int hashCode() {

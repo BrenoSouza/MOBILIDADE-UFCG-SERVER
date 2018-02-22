@@ -23,5 +23,7 @@ public interface TravelService {
 
 	Response<Travel> checkDriverAvailable(Long id,Long formId);
 	
+	Response<Travel> addRide(Long travelId,Long formId);
+	
 	
 }

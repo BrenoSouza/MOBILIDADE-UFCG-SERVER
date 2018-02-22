@@ -27,7 +27,7 @@ public class Vehicle implements Serializable{
 	@Column(name = "id_vehicle")
 	private Long id;
 	
-	@OneToOne(mappedBy="form")
+	@OneToOne(mappedBy="vehicle")
 	private Travel travel;
 	
 	@NotNull

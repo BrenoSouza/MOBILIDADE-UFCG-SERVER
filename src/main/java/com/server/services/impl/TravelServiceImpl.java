@@ -1,7 +1,6 @@
 package com.server.services.impl;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +9,6 @@ import org.joda.time.Interval;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.server.entities.Driver;
 import com.server.entities.Form;
 import com.server.entities.Travel;
@@ -71,7 +69,8 @@ public class TravelServiceImpl implements TravelService{
 		
 		
 		Travel travel = new Travel();
-		travel.setForm(form);
+		//travel.setForm(form);
+		travel.addform(form);
 		travel.setVehicle(vehicle);
 		travel.setDriver(driver);
 		travel.setTravelDate(form.getTravelDate());
@@ -108,8 +107,15 @@ public class TravelServiceImpl implements TravelService{
 
 	@Override
 	public void deleteTravel(Long id) {
-		 this.travelRepository.delete(id);
-		
+		List<Form> list = this.travelRepository.findOne(id).getForm();
+		for (int i = 0; i < list.size(); i++) {
+			
+			Form form = list.get(i);
+			form.setTravel(null);
+			form.setStatus(FormStatus.WAITING);
+			this.formRepository.save(form);
+		}
+		 this.travelRepository.delete(id);		
 	}
 
 	@Override
@@ -278,5 +284,19 @@ public class TravelServiceImpl implements TravelService{
 		return response;
 	}
 
+	@Override
+	public Response<Travel> addRide(Long travelId, Long formId) {
+		Form form = this.formRepository.findOne(formId);
+		Travel travel = this.travelRepository.findOne(travelId);
+		
+		travel.addform(form);
+		this.travelRepository.save(travel);
+		
+		Response<Travel> response =  new Response<Travel>();
+		
+		return response;
+	}
+
+	
 	
 }

@@ -26,7 +26,7 @@ public class Driver implements Serializable{
 	@Column(name = "id_driver")
 	private Long id;
 	
-	@OneToOne(mappedBy="form")
+	@OneToOne(mappedBy="vehicle")
 	private Travel travel;
 	
 	private int registration;
