@@ -3,12 +3,16 @@ package com.server.entities;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+
+import com.server.entities.enums.AdminRoles;
 
 @Entity
 @Table(name = "admin")
@@ -30,6 +34,9 @@ public class Admin implements Serializable{
 	private String name;
 	
 	private String cpf;
+	
+	@Enumerated(EnumType.STRING)
+	private AdminRoles roles;
 	
 	public Admin(int registration, String email, String password, String name, String cpf) {
 		super();
@@ -90,6 +97,14 @@ public class Admin implements Serializable{
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+	
+	public AdminRoles getRoles() {
+		return roles;
+	}
+
+	public void setRoles(AdminRoles roles) {
+		this.roles = roles;
 	}
 
 	@Override
