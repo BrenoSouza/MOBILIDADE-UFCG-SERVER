@@ -29,7 +29,7 @@ public class FormServiceImpl implements FormService {
 
 	@Override
 	public Form save(Form formulario) {
-		formulario.setStatus(FormStatus.WAITING);
+		formulario.setStatus(FormStatus.WAITING);//set waiting status
 		return formRepository.save(formulario);
 	}
 

@@ -43,9 +43,7 @@ public class FormController {
 		Response<Form> response = new Response<Form>();
 		
 		// Save form in the database.
-		this.formService.save(form);
-		
-		response.addData(form);
+		response.addData(this.formService.save(form));
 		
 		return ResponseEntity.ok(response);
 
