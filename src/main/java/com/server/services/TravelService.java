@@ -13,6 +13,8 @@ public interface TravelService {
 	
 	List<Travel> getAllTravel();
 	
+	List<Travel> getAllPublicTravel();
+	
 	Travel getTravel(Long id);
 	
 	void deleteTravel(Long id);

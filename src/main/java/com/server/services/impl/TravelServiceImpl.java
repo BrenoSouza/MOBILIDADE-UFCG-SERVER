@@ -7,8 +7,10 @@ import java.util.List;
 
 import org.joda.time.Interval;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.server.entities.Driver;
 import com.server.entities.Form;
 import com.server.entities.Travel;
@@ -103,6 +105,36 @@ public class TravelServiceImpl implements TravelService{
 			this.travelRepository.save(listTravel.get(i));
 		}		
 		return this.travelRepository.findAll();
+	}
+	
+	@Override
+	public List<Travel> getAllPublicTravel() {
+		List<Travel> list = this.travelRepository.findAll();
+		List<Travel> listPublic = new ArrayList<>();
+		for(Travel travel:list) {
+			listPublic.add(convertTravelToPulicTravel(travel));
+		}
+		
+		return listPublic;
+	}
+
+	
+
+	private Travel convertTravelToPulicTravel(Travel travel) {
+		// driver sets empty
+		travel.getDriver().setAddress("");
+		travel.getDriver().setCpf("");
+		travel.getDriver().setId(0l);
+		travel.getDriver().setPhone("");
+		travel.getDriver().setRegistration(0);
+		
+		// set form empty
+		for(Form form: travel.getForm()){
+			form.setName("");
+			form.setPurpose("");
+		}
+		
+		return travel;
 	}
 
 	@Override
@@ -296,6 +328,7 @@ public class TravelServiceImpl implements TravelService{
 		
 		return response;
 	}
+
 
 	
 	
