@@ -42,6 +42,8 @@ public class FormController {
 		// Response object.
 		Response<Form> response = new Response<Form>();
 		
+		form.setStatus(FormStatus.WAITING);//set waiting status
+		
 		// Save form in the database.
 		response.addData(this.formService.save(form));
 		
@@ -92,6 +94,24 @@ public class FormController {
 		return ResponseEntity.ok(response);
 	}
 	
+	@PutMapping("denied/{id}")
+	public ResponseEntity<Response<Form>> updateFormStatusForDenied(@PathVariable("id") Long id){
+		
+		//sdffsdf
+		Form updateForm = formService.findByid(id);
+		updateForm.setStatus(FormStatus.DENIED);
+		
+		// Response object.
+		Response<Form> response = new Response<Form>();
+				
+		// Update form in database.
+		formService.save(updateForm);	
+		
+		
+		return ResponseEntity.ok(response);
+	}
+			
+			
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Response<Form>> deleteForm(@PathVariable("id") Long id){
 		
