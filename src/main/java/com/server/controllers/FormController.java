@@ -153,12 +153,12 @@ public class FormController {
 		@RequestParam(value = "justification",    required = false) String justification,
 		@RequestParam(value = "status",           required = false) FormStatus status,
 		@RequestParam(value = "requesterSector",  required = false) String requesterSector,
-		@RequestParam(value = "requestDate",      required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date requestDate,
-		@RequestParam(value = "travelDate",       required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date travelDate,
-		@RequestParam(value = "departureHour",    required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date departureHour,
-		@RequestParam(value = "returnDate",       required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date returnDate,
-		@RequestParam(value = "returnHour",       required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date returnHour,
-		@RequestParam(value = "arrivalTime",      required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date arrivalTime){
+		@RequestParam(value = "requestDate",      required = false) @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") Date requestDate,
+		@RequestParam(value = "travelDate",       required = false) @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") Date travelDate,
+		@RequestParam(value = "departureHour",    required = false) @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") Date departureHour,
+		@RequestParam(value = "returnDate",       required = false) @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") Date returnDate,
+		@RequestParam(value = "returnHour",       required = false) @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") Date returnHour,
+		@RequestParam(value = "arrivalTime",      required = false) @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") Date arrivalTime){
 	
 		
 		Response<Form> response;
