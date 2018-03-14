@@ -177,64 +177,64 @@ public class FormController {
 		Response<Form> response = new Response<Form>();
 		
 		if(name != null) {
-			response.setData(this.formService.searchByName(name));
+			response.addList(this.formService.searchByName(name));
 		}		
 		if(sector != null) {
-			response.setData(this.formService.searchByRequesterSector(sector));
+			response.addList(this.formService.searchByRequesterSector(sector));
 		}		
 		if(destination != null) {
-			response.setData(this.formService.searchByDestination(destination));
+			response.addList(this.formService.searchByDestination(destination));
 		}
 		if(purpose != null) {
-			response.setData(this.formService.searchByPurpose(purpose));
+			response.addList(this.formService.searchByPurpose(purpose));
 		}
 		if(phone != null) {
-			response.setData(this.formService.searchByphone(phone));
+			response.addList(this.formService.searchByphone(phone));
 		}
 		if(departurePoint != null) {
-			response.setData(this.formService.searchBydeparturePoint(departurePoint));
+			response.addList(this.formService.searchBydeparturePoint(departurePoint));
 		}
 		if(address != null) {
-			response.setData(this.formService.searchByaddress(address));
+			response.addList(this.formService.searchByaddress(address));
 		}
 		if(flightNumber != null) {
-			response.setData(this.formService.searchByflightNumber(flightNumber));
+			response.addList(this.formService.searchByflightNumber(flightNumber));
 		}
 		if(airCompany != null) {
-			response.setData(this.formService.searchByairCompany(airCompany));
+			response.addList(this.formService.searchByairCompany(airCompany));
 		}
 		if(travelOrigin != null) {
-			response.setData(this.formService.searchBytravelOrigin(travelOrigin));
+			response.addList(this.formService.searchBytravelOrigin(travelOrigin));
 		}
 		if(driverResponsible != null) {
-			response.setData(this.formService.searchBydriverSectorResponsibility(driverResponsible));
+			response.addList(this.formService.searchBydriverSectorResponsibility(driverResponsible));
 		}
 		if(justification != null) {
-			response.setData(this.formService.searchByrequestJustification(justification));
+			response.addList(this.formService.searchByrequestJustification(justification));
 		}
 		if(status != null) {
-			response.setData(this.formService.searchBystatus(status));
+			response.addList(this.formService.searchBystatus(status));
 		}
 		if(requestDate != null) {
-			response.setData(this.formService.searchAllByRequestDate(requestDate));
+			response.addList(this.formService.searchAllByRequestDate(requestDate));
 		}
 		if(travelDate != null) {
-			response.setData(this.formService.searchAllBytravelDate(travelDate));
+			response.addList(this.formService.searchAllBytravelDate(travelDate));
 		}
 		if(departureHour != null) {
 			//response.setData(this.formService.searchAllBydepartureHour(departureHour));
 		}
 		if(returnDate != null) {
-			response.setData(this.formService.searchAllByreturnDate(returnDate));
+			response.addList(this.formService.searchAllByreturnDate(returnDate));
 		}
 		if(returnHour != null) {
 			//response.setData(this.formService.searchAllByreturnHour(returnHour));
 		}
 		if(arrivalTime != null) {
-			response.setData(this.formService.searchAllByarrivalTime(arrivalTime));
+			response.addList(this.formService.searchAllByarrivalTime(arrivalTime));
 		}
 		if(requesterSector != null) {
-			response.setData(this.formService.searchByRequesterSector(requesterSector));
+			response.addList(this.formService.searchByRequesterSector(requesterSector));
 		}
 		return response;
 	}

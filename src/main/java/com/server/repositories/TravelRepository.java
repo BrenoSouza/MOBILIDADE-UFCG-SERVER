@@ -25,5 +25,20 @@ public interface TravelRepository extends JpaRepository<Travel, Long> {
 	List<Travel> findAllByVehicleAndTravelDateBetween(Vehicle vehicle, Date before,Date after);
 	
 	List<Travel> findAllByTravelDateBetween(Date before,Date after);
-
+	
+	List<Travel> findAllByReturnDateBetween(Date before,Date after);
+	
+	// search vehicle
+	List<Travel> findAllByVehicleVehicle(String vehicle);
+	List<Travel> findAllByVehiclePlate(String plate);
+	
+	// search drive
+	List<Travel> findAllByDriverName(String name);
+	List<Travel> findAllByDriverCnh(String cnh);
+	
+	//seach form
+	List<Travel> findAllByFormName(String name);
+	//List<Travel> findAllByFormSector(String sector);
+	List<Travel> findAllByFormRequesterSector(String requesterSector);
+	
 }

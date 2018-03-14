@@ -114,9 +114,25 @@ public class TravelServiceImpl implements TravelService{
 	
 	@Override
 	public List<Travel> getAllPublicTravel() {
-		List<Travel> list = this.travelRepository.findAll();
+		List<Travel> listTravel = new ArrayList<Travel>(this.travelRepository.findAllByStatus(TravelStatus.HAPPENING));
+		
+		listTravel.addAll(this.travelRepository.findAllByStatus(TravelStatus.PLANNED));
+		
+		Date today = new Date();
+		
+		for (int i = 0; i < listTravel.size(); i++) {
+			if((today.before(listTravel.get(i).getReturnDate())) && (today.after(listTravel.get(i).getTravelDate()))) {
+				listTravel.get(i).setStatus(TravelStatus.HAPPENING);
+			}else if(today.after(listTravel.get(i).getReturnDate())){
+				listTravel.get(i).setStatus(TravelStatus.COMPLETED);
+			}else {
+				listTravel.get(i).setStatus(TravelStatus.PLANNED);
+			}
+			this.travelRepository.save(listTravel.get(i));
+		}		
+		
 		List<Travel> listPublic = new ArrayList<>();
-		for(Travel travel:list) {
+		for(Travel travel:listTravel) {
 			listPublic.add(convertTravelToPulicTravel(travel));
 		}
 		
@@ -325,16 +341,26 @@ public class TravelServiceImpl implements TravelService{
 	public Response<Travel> addRide(Long travelId, Long formId) {
 		Form form = this.formRepository.findOne(formId);		
 		Travel travel = this.travelRepository.findOne(travelId);
+		Response<Travel> response =  new Response<Travel>();
+		
+		if(form == null) {
+			response.addErrorMessage("Formulário não encontrado, tente novamente");
+			return response;
+		}
+		
+		if(travel == null) {
+			response.addErrorMessage("viagem não encontrada, tente novamente");
+			return response;
+		}
 		
 		form.setRide(true);
+		form.setStatus(FormStatus.COMPLETED);
 		this.formRepository.save(form);
 		
 		travel.addform(form);
-		this.travelRepository.save(travel);
+		this.travelRepository.save(travel);		
 		
-		
-		
-		Response<Travel> response =  new Response<Travel>();
+		response.addData(travel);
 		
 		return response;
 	}

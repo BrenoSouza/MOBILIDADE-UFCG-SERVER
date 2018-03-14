@@ -3,7 +3,7 @@ package com.server.dtos;
 public class RideDto {
 
 	private Long formId;
-	private Long tarvelId;
+	private Long travelId;
 	
 	public RideDto() {
 		
@@ -17,12 +17,12 @@ public class RideDto {
 		this.formId = formId;
 	}
 
-	public Long getTarvelId() {
-		return tarvelId;
+	public Long getTravelId() {
+		return travelId;
 	}
 
-	public void setTarvelId(Long tarvelId) {
-		this.tarvelId = tarvelId;
+	public void setTravelId(Long tarvelId) {
+		this.travelId = tarvelId;
 	};
 	
 	
