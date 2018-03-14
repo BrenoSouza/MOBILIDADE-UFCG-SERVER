@@ -109,32 +109,80 @@ public class FormServiceImpl implements FormService {
 
 	@Override
 	public List<Form> searchAllByRequestDate(Date requestDate) {
-		return formRepository.findAllByrequestDate(requestDate);
+		Date requestDate2 = new Date();
+		requestDate2.setTime(requestDate.getTime());
+		requestDate.setHours(0);
+		requestDate.setMinutes(0);
+		requestDate.setSeconds(0);
+		requestDate2.setHours(23);
+		requestDate2.setMinutes(59);
+		requestDate2.setSeconds(59);
+		return formRepository.findAllByrequestDateBetween(requestDate,requestDate2);
 	}
 
 	@Override
 	public List<Form> searchAllBytravelDate(Date travelDate) {
-		return formRepository.findAllBytravelDate(travelDate);
+		Date travelDate2 = new Date();
+		travelDate2.setTime(travelDate.getTime());
+		travelDate.setHours(0);
+		travelDate.setMinutes(0);
+		travelDate.setSeconds(0);
+		travelDate2.setHours(23);
+		travelDate2.setMinutes(59);
+		travelDate2.setSeconds(59);
+		return formRepository.findAllBytravelDateBetween(travelDate,travelDate2);
 	}
 	
 	@Override
 	public List<Form> searchAllBydepartureHour(Date departureHour) {
-		return formRepository.findAllBydepartureHour(departureHour);
+		Date departureHour2 = new Date();
+		departureHour2.setTime(departureHour.getTime());
+		departureHour.setHours(0);
+		departureHour.setMinutes(0);
+		departureHour.setSeconds(0);
+		departureHour2.setHours(23);
+		departureHour2.setMinutes(59);
+		departureHour2.setSeconds(59);
+		return formRepository.findAllBydepartureHourBetween(departureHour,departureHour2);
 	}
 
 	@Override
 	public List<Form> searchAllByreturnDate(Date returnDate) {
-		return formRepository.findAllByreturnDate(returnDate);
+		Date returnDate2 = new Date();
+		returnDate2.setTime(returnDate.getTime());
+		returnDate.setHours(0);
+		returnDate.setMinutes(0);
+		returnDate.setSeconds(0);
+		returnDate2.setHours(23);
+		returnDate2.setMinutes(59);
+		returnDate2.setSeconds(59);
+		return formRepository.findAllByreturnDateBetween(returnDate,returnDate2);
 	}
 
 	@Override
 	public List<Form> searchAllByreturnHour(Date returnHour) {
-		return formRepository.findAllByreturnHour(returnHour);
+		Date returnHour2 = new Date();
+		returnHour2.setTime(returnHour.getTime());
+		returnHour.setHours(0);
+		returnHour.setMinutes(0);
+		returnHour.setSeconds(0);
+		returnHour2.setHours(23);
+		returnHour2.setMinutes(59);
+		returnHour2.setSeconds(59);
+		return formRepository.findAllByreturnHourBetween(returnHour,returnHour2);
 	}
 
 	@Override
 	public List<Form> searchAllByarrivalTime(Date arrivalTime) {
-		return formRepository.findAllByarrivalTime(arrivalTime);
+		Date arrivalTime2 = new Date();
+		arrivalTime2.setTime(arrivalTime.getTime());
+		arrivalTime.setHours(0);
+		arrivalTime.setMinutes(0);
+		arrivalTime.setSeconds(0);
+		arrivalTime2.setHours(23);
+		arrivalTime2.setMinutes(59);
+		arrivalTime2.setSeconds(59);
+		return formRepository.findAllByarrivalTimeBetween(arrivalTime,arrivalTime2);
 	}
 
 }

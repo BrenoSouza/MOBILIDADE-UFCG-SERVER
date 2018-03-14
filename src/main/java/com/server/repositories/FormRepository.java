@@ -46,17 +46,17 @@ public interface FormRepository extends JpaRepository<Form, Long>{
 	
 	
 	
-	List<Form> findAllByrequestDate(Date requestDate);
+	List<Form> findAllByrequestDateBetween(Date before,Date after);
 	
-	List<Form> findAllBytravelDate(Date travelDate);
+	List<Form> findAllBytravelDateBetween(Date before,Date after);
 	
-	List<Form> findAllBydepartureHour(Date departureHour);
+	List<Form> findAllBydepartureHourBetween(Date before,Date after);
 	
-	List<Form> findAllByreturnDate(Date returnDate);
+	List<Form> findAllByreturnDateBetween(Date before,Date after);
 	
-	List<Form> findAllByreturnHour(Date returnHour);
+	List<Form> findAllByreturnHourBetween(Date before,Date after);
 	
-	List<Form> findAllByarrivalTime(Date arrivalTime);
+	List<Form> findAllByarrivalTimeBetween(Date before,Date after);
 	
 	@Transactional
     void deleteById(Long id);
