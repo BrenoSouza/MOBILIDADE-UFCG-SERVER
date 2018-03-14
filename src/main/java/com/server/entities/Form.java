@@ -124,6 +124,13 @@ public class Form implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private FormStatus status;
 	
+	
+	private Long register;
+	
+	private Boolean ride;
+	
+	private String justificationDeniel;
+	
 	public Form(String requesterSector, Date requestDate, String destination, String purpose, String name, String phone,
 			Date travelDate, Date departureHour, Date returnDate, Date returnHour, String departurePoint,
 			String address, Date arrivalTime, String flightNumber, String airCompany, String travelOrigin,
@@ -325,7 +332,31 @@ public class Form implements Serializable{
             travel.addForm(this, false);
         }
     }
-	
+	    
+	public Long getRegister() {
+		return register;
+	}
+
+	public void setRegister(Long register) {
+		this.register = register;
+	}
+
+	public Boolean getRide() {
+		return ride;
+	}
+
+	public void setRide(Boolean ride) {
+		this.ride = ride;
+	}
+
+	public String getJustificationDeniel() {
+		return justificationDeniel;
+	}
+
+	public void setJustificationDeniel(String justificationDeniel) {
+		this.justificationDeniel = justificationDeniel;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

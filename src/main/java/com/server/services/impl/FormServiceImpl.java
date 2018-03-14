@@ -10,12 +10,16 @@ import com.server.entities.Form;
 import com.server.entities.enums.FormStatus;
 import com.server.repositories.FormRepository;
 import com.server.services.FormService;
+import com.server.services.GeneratorService;
 
 @Service
 public class FormServiceImpl implements FormService {
 	
 	@Autowired
 	private FormRepository formRepository;
+	
+	@Autowired
+	private GeneratorService generatorService;
 
 	@Override
 	public Form findByid(Long id) {
@@ -29,6 +33,7 @@ public class FormServiceImpl implements FormService {
 
 	@Override
 	public Form save(Form formulario) {
+		formulario.setRegister(this.generatorService.getRegisterForm());
 		return formRepository.save(formulario);
 	}
 

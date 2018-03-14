@@ -21,7 +21,7 @@ public interface TravelService {
 	
 	Travel setStatus(Long id, TravelStatus Status);
 	
-	Response<Travel> checkVehicleAvailable(Long vehicleId,Long formId, Boolean setupForm);
+	Response<Travel> checkVehicleAvailable(Long vehicleId,Long formId);
 
 	Response<Travel> checkDriverAvailable(Long id,Long formId);
 	

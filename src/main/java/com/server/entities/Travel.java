@@ -52,10 +52,8 @@ public class Travel implements Serializable{
 	@JoinColumn(name="driver_id")
 	private Driver driver;	
 	
-	static private Long  Nrequest = (long) -1;
-	
 	@Column(name = "request_id")
-	private Long  request;
+	private Long  register;
 	
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
@@ -72,8 +70,6 @@ public class Travel implements Serializable{
 	private TravelStatus status;
 	
 	public Travel() {
-		Nrequest++;
-		request = Nrequest;
 	}
 
 	public Long getId() {
@@ -108,12 +104,12 @@ public class Travel implements Serializable{
 		this.driver = driver;
 	}
 
-	public Long getRequest() {
-		return request;
+	public Long getRegister() {
+		return register;
 	}
 
-	public void setRequest(Long n_request) {
-		this.request = n_request;
+	public void setRegister(Long n_request) {
+		this.register = n_request;
 	}
 
 	
@@ -188,7 +184,7 @@ public class Travel implements Serializable{
 	@Override
 	public String toString() {
 		return "Travel [id=" + id + ", form=" + form + ", vehicle=" + vehicle + ", driver=" + driver + ", request="
-				+ request + ", travelDate=" + travelDate + ", returnDate=" + returnDate + ", status=" + status + "]";
+				+ register + ", travelDate=" + travelDate + ", returnDate=" + returnDate + ", status=" + status + "]";
 	}
 	
 	

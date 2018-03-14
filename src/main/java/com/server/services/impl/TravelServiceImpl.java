@@ -22,6 +22,7 @@ import com.server.repositories.FormRepository;
 import com.server.repositories.TravelRepository;
 import com.server.repositories.VehicleRepository;
 import com.server.response.Response;
+import com.server.services.GeneratorService;
 import com.server.services.TravelService;
 
 @Service
@@ -38,6 +39,9 @@ public class TravelServiceImpl implements TravelService{
 	
 	@Autowired
 	private TravelRepository travelRepository;
+	
+	@Autowired
+	private GeneratorService generatorService;
 	
 	private List<Travel> listTravelBusy;
 	
@@ -57,7 +61,7 @@ public class TravelServiceImpl implements TravelService{
 			return response;
 		}
 		
-		response = this.checkVehicleAvailable(idVehicle, idForm, true);
+		response = this.checkVehicleAvailable(idVehicle, idForm);
 				
 		if(! response.getErrors().isEmpty()) {
 			return response;
@@ -78,6 +82,7 @@ public class TravelServiceImpl implements TravelService{
 		travel.setTravelDate(form.getTravelDate());
 		travel.setReturnDate(form.getReturnDate());
 		travel.setStatus(TravelStatus.PLANNED);
+		travel.setRegister(this.generatorService.getRegisterTravel());
 		this.travelRepository.save(travel);
 		
 		form.setStatus(FormStatus.COMPLETED);
@@ -163,7 +168,7 @@ public class TravelServiceImpl implements TravelService{
 	}
 
 	@Override
-	public Response<Travel> checkVehicleAvailable(Long idVehicle,Long idForm,Boolean setupForm) {
+	public Response<Travel> checkVehicleAvailable(Long idVehicle,Long idForm) {
 		
 		Response<Travel> response =  new Response<Travel>();
 		
@@ -231,11 +236,11 @@ public class TravelServiceImpl implements TravelService{
 			}
 		}
 		
-		if(! listTravelBusy.isEmpty() && setupForm) {
+		if(! listTravelBusy.isEmpty()) {
 			response.setData(listTravelBusy);
 			response.addErrorMessage("Veículo ja ocupado");
-			form.setStatus(FormStatus.DENIED);
-			this.formRepository.save(form);
+			//form.setStatus(FormStatus.DENIED);
+			//this.formRepository.save(form);
 		}
 		
 		return response;
@@ -309,8 +314,8 @@ public class TravelServiceImpl implements TravelService{
 		if(! listTravelBusy.isEmpty()) {
 			response.addErrorMessage("Motorista ocupado");
 			response.setData(listTravelBusy);
-			form.setStatus(FormStatus.DENIED);
-			this.formRepository.save(form);
+			//form.setStatus(FormStatus.DENIED);
+			//this.formRepository.save(form);
 		}
 				
 		return response;
@@ -318,11 +323,16 @@ public class TravelServiceImpl implements TravelService{
 
 	@Override
 	public Response<Travel> addRide(Long travelId, Long formId) {
-		Form form = this.formRepository.findOne(formId);
+		Form form = this.formRepository.findOne(formId);		
 		Travel travel = this.travelRepository.findOne(travelId);
+		
+		form.setRide(true);
+		this.formRepository.save(form);
 		
 		travel.addform(form);
 		this.travelRepository.save(travel);
+		
+		
 		
 		Response<Travel> response =  new Response<Travel>();
 		

@@ -76,7 +76,7 @@ public class VehicleServiceImpl implements VehicleService {
 		List<Vehicle> vehicleAvailable = new ArrayList<Vehicle>();
 		
 		for (int i = 0; i < vehicleList.size(); i++) {
-			if(this.travelService.checkVehicleAvailable(vehicleList.get(i).getId(), formId, false).getData().isEmpty()) {
+			if(this.travelService.checkVehicleAvailable(vehicleList.get(i).getId(), formId).getData().isEmpty()) {
 				vehicleAvailable.add(vehicleList.get(i));
 			}
 		}

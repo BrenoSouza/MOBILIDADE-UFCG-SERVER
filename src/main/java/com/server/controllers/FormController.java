@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.server.dtos.JustificationDenielDto;
 import com.server.entities.Form;
 import com.server.entities.enums.FormStatus;
 import com.server.services.FormService;
@@ -34,7 +35,6 @@ public class FormController {
 	private FormService formService;
 	
 	
-	
 	@PostMapping
 	public ResponseEntity<Response<Form>> register(@RequestBody Form form,
 		BindingResult result){
@@ -43,6 +43,7 @@ public class FormController {
 		Response<Form> response = new Response<Form>();
 		
 		form.setStatus(FormStatus.WAITING);//set waiting status
+		form.setRide(false);
 		
 		// Save form in the database.
 		response.addData(this.formService.save(form));
@@ -95,11 +96,18 @@ public class FormController {
 	}
 	
 	@PutMapping("denied/{id}")
-	public ResponseEntity<Response<Form>> updateFormStatusForDenied(@PathVariable("id") Long id){
+	public ResponseEntity<Response<Form>> updateFormStatus(@PathVariable("id") Long id, @RequestBody JustificationDenielDto message){
 		
 		//sdffsdf
 		Form updateForm = formService.findByid(id);
-		updateForm.setStatus(FormStatus.DENIED);
+		if(updateForm.getStatus() == FormStatus.DENIED) {
+			updateForm.setStatus(FormStatus.WAITING);
+			updateForm.setJustificationDeniel(null);
+		}else {
+			updateForm.setStatus(FormStatus.DENIED);
+			updateForm.setJustificationDeniel(message.getJustificationDeniel());
+		}
+		
 		
 		// Response object.
 		Response<Form> response = new Response<Form>();
